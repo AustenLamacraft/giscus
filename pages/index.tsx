@@ -30,9 +30,9 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 
   contents[1] = `${afterConfig}\n## ${t('tryItOut')} 👇👇👇\n`;
 
-  const token = await getAppAccessToken('giscus/giscus').catch(() => '');
+  const token = await getAppAccessToken('AustenLamacraft/dooftown').catch(() => '');
   const [contentBefore, contentAfter] = await Promise.all(
-    contents.map((section) => renderMarkdown(section, token, 'giscus/giscus')),
+    contents.map((section) => renderMarkdown(section, token, 'AustenLamacraft/dooftown')),
   );
 
   const comment: IComment = {
@@ -135,9 +135,10 @@ export default function Home({
         <div className="w-full my-8 giscus" />
         <Script
           src="/client.js"
-          data-repo="giscus/giscus"
-          data-repo-id="MDEwOlJlcG9zaXRvcnkzNTE5NTgwNTM="
-          data-category-id="MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyNzk2NTc1"
+          data-repo="AustenLamacraft/dooftown"
+          data-repo-id="MDEwOlJlcG9zaXRvcnkyMDcyOTM3MTQ="
+          data-category="Announcements"
+          data-category-id="DIC_kwDODFsNEs4B_-r4"
           data-mapping="specific"
           data-term="Welcome to giscus!"
           data-theme="light"
