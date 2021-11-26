@@ -7,7 +7,7 @@ import { IComment, IReply, IUser } from '../lib/types/adapter';
 import { resizeTextArea } from '../lib/utils';
 import { addDiscussionComment } from '../services/github/addDiscussionComment';
 import { addDiscussionReply } from '../services/github/addDiscussionReply';
-import { renderMarkdown } from '../services/github/markdown';
+import { renderMarkdown } from '../services/giscus/markdown';
 
 interface CommentBoxProps {
   viewer?: IUser;
