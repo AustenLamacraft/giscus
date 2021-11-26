@@ -45,7 +45,8 @@ export default function CommentBox({
     if (isPreview && input !== lastInput) {
       if (input) {
         setIsLoading(true);
-        renderMarkdown(input, token, context).then((value) => {
+        renderMarkdown(input).then((value) => {
+        // renderMarkdown(input, token, context).then((value) => {
           const processed = processCommentBody(value);
           setPreview(processed);
           setIsLoading(false);

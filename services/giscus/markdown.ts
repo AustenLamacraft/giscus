@@ -6,7 +6,6 @@ import katex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
 import rehypeDocument from 'rehype-document';
 
-
 export function renderMarkdown(text: string) {
   return unified()
     .use(parse)
@@ -18,5 +17,5 @@ export function renderMarkdown(text: string) {
     })
     .use(rehypeStringify)
     .process(text)
-    .then(file => file.toString())
+    .then((file) => file.toString());
 }
