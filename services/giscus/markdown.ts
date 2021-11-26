@@ -13,7 +13,7 @@ export function renderMarkdown(text: string) {
     .use(remarkRehype)
     .use(katex)
     .use(rehypeDocument, {
-      css: 'https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css'
+      css: 'https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css',
     })
     .use(rehypeStringify)
     .process(text)
