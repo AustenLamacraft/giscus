@@ -88,6 +88,10 @@ React, Vue, or Svelte와 함께 giscus를 사용하고 싶으시면, [giscus com
 - [Polski](README.pl.md)
 - [Română](README.ro.md)
 - [简体中文](README.zh-CN.md)
+<<<<<<< HEAD
+=======
+- [繁體中文](README.zh-TW.md)
+>>>>>>> pr/AustenLamacraft/1
 
 [![Powered by Vercel](public/powered-by-vercel.svg)][vercel]
 
