@@ -36,7 +36,7 @@ interface GBaseComment {
   lastEditedAt: string | null;
   deletedAt: string | null;
   isMinimized: boolean;
-  bodyHTML: string;
+  body: string;
   reactionGroups: GReactionGroup[];
 }
 
