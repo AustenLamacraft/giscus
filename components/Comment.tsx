@@ -1,5 +1,5 @@
 import { ArrowUpIcon, KebabHorizontalIcon } from '@primer/octicons-react';
-import { ReactElement, ReactNode, useCallback, useContext, useState } from 'react';
+import { ReactElement, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { handleCommentClick, processCommentBody } from '../lib/adapter';
 import { IComment, IReply } from '../lib/types/adapter';
 import { Reaction, updateCommentReaction } from '../lib/reactions';
@@ -9,6 +9,7 @@ import ReactButtons from './ReactButtons';
 import Reply from './Reply';
 import { AuthContext } from '../lib/context';
 import { useDateFormatter, useGiscusTranslation, useRelativeTimeFormatter } from '../lib/i18n';
+import { renderMarkdown } from '../services/giscus/markdown';
 
 interface ICommentProps {
   children?: ReactNode;
@@ -66,6 +67,13 @@ export default function Comment({
       promise,
     );
   }, [comment, onCommentUpdate, token]);
+
+  const [renderedComment, setRenderedComment] = useState(undefined);
+  useEffect(() => {
+    renderMarkdown(comment.body).then((value) => {
+      setRenderedComment(processCommentBody(value));
+    });
+  }, [comment.body]);
 
   const hidden = !!comment.deletedAt || comment.isMinimized;
 
@@ -138,7 +146,11 @@ export default function Comment({
           }`}
           onClick={handleCommentClick}
           dangerouslySetInnerHTML={
-            hidden ? undefined : { __html: processCommentBody(comment.bodyHTML) }
+            hidden
+              ? undefined
+              : {
+                  __html: renderedComment,
+                }
           }
         >
           <em className="color-text-secondary">

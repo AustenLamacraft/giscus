@@ -1,9 +1,10 @@
 import ReactButtons from './ReactButtons';
 import { IReply } from '../lib/types/adapter';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Reaction, updateCommentReaction } from '../lib/reactions';
 import { handleCommentClick, processCommentBody } from '../lib/adapter';
 import { useDateFormatter, useGiscusTranslation, useRelativeTimeFormatter } from '../lib/i18n';
+import { renderMarkdown } from '../services/giscus/markdown';
 
 interface IReplyProps {
   reply: IReply;
@@ -20,6 +21,13 @@ export default function Reply({ reply, onReplyUpdate }: IReplyProps) {
       onReplyUpdate(updateCommentReaction(reply, content), promise),
     [reply, onReplyUpdate],
   );
+
+  const [renderedReply, setRenderedComment] = useState(undefined);
+  useEffect(() => {
+    renderMarkdown(reply.body).then((value) => {
+      setRenderedComment(processCommentBody(value));
+    });
+  }, [reply.body]);
 
   const hidden = reply.deletedAt || reply.isMinimized;
 
@@ -102,9 +110,7 @@ export default function Reply({ reply, onReplyUpdate }: IReplyProps) {
           <div
             className={`markdown gsc-reply-content ${!hidden ? ' not-shown' : ''}`}
             onClick={handleCommentClick}
-            dangerouslySetInnerHTML={
-              hidden ? undefined : { __html: processCommentBody(reply.bodyHTML) }
-            }
+            dangerouslySetInnerHTML={hidden ? undefined : { __html: renderedReply }}
           >
             <em className="color-text-secondary">
               {reply.deletedAt ? t('thisCommentWasDeleted') : t('thisCommentWasHidden')}
