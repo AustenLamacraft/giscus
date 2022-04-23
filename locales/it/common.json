@@ -32,6 +32,8 @@
   "loadingComments": "Carico commenti…",
   "loadingPreview": "Carico anteprima…",
   "poweredBy": "– da <a>giscus</a>",
+  "oldest": "Vecchio",
+  "newest": "Recente",
   "showPreviousReplies": {
     "0": "Mostra {{count}} risposte precedenti",
     "one": "Mostra {{count}} risposta precedente",
@@ -59,10 +61,12 @@
   "writeAReply": "Scrivi una risposta",
 
   "upvote": "Upvote",
+  "youMustBeSignedInToUpvote": "Devi accedere per votare.",
   "addReactions": "Aggiungi reazioni",
   "pleaseWait": "Attendi…",
   "pickYourReaction": "Scegli la tua reazione",
   "addTheReaction": "Aggiungi reazione {{reaction}}",
+  "removeTheReaction": "Rimuovi la reazione {{reaction}}",
   "signInToAddYourReaction": "<a>Accedi</a> per aggiungere la tua reazione.",
   "youMustBeSignedInToAddReactions": "Devi accedere per aggiungere reazioni.",
   "peopleReactedWith": {

@@ -1,4 +1,4 @@
-# advanced usage
+# Advanced usage
 
 This guide highlights advanced usage of giscus through additional
 configurations.
@@ -6,6 +6,7 @@ configurations.
 - [`giscus.json`](#giscusjson)
   - [`origins`](#origins)
   - [`originsRegex`](#originsregex)
+  - [`defaultCommentOrder`](#defaultcommentorder)
 - [`data-` attributes](#data--attributes)
   - [`data-theme`](#data-theme)
 - [giscus-to-parent `message` events](#giscus-to-parent-message-events)
@@ -23,6 +24,7 @@ following keys:
 
 - [`origins`](#origins)
 - [`originsRegex`](#originsregex)
+- [`defaultCommentOrder`](#defaultcommentorder)
 
 ### `origins`
 
@@ -63,6 +65,19 @@ Example `giscus.json`:
 {
   "origins": ["https://giscus.app"],
   "originsRegex": ["http://localhost:[0-9]+"]
+}
+```
+
+### `defaultCommentOrder`
+
+You can set the default comment order, i.e. `"oldest"` (oldest to newest) or
+`"newest"` (newest to oldest). This option defaults to `"oldest"`.
+
+Example `giscus.json`:
+
+```json
+{
+  "defaultCommentOrder": "newest"
 }
 ```
 
@@ -178,7 +193,7 @@ if ('discussion' in giscusData) {
 }
 ```
 
-## parent-to-giscus `message` events
+## Parent-to-giscus `message` events
 
 The `contentWindow` of giscus' `<iframe>` element also listens to `message`
 events. You can send these events to update giscus based on your page's state.
@@ -209,11 +224,15 @@ interface ISetConfigMessage {
   setConfig: {
     theme?: Theme;
     repo?: string;
-    term?: string;
-    number?: number;
+    repoId?: string;
     category?: string;
+    categoryId?: string;
+    term?: string;
+    description?: string;
+    number?: number;
     reactionsEnabled?: boolean;
     emitMetadata?: boolean;
+    inputPosition?: InputPosition;
     lang?: AvailableLanguage;
   };
 }

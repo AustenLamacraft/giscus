@@ -1,5 +1,5 @@
 {
-  "configuration": "configuration",
+  "configuration": "Configuration",
 
   "language": "Langue",
   "chooseLanguageGiscusDisplayed": "Choisir la langue d'affichage de giscus. Vous ne trouvez pas votre langue ? <a>Contribuez</a> à la traduction.",
@@ -49,6 +49,10 @@
   "reactionsMainPostShownBeforeComments": "Les réactions au message principal de la discussion seront affichées avant les commentaires.",
   "emitDiscussionMetadata": "Diffuser les métadonnées de la discussion",
   "discussionMetadataSentPeriodically": "Les métadonnées de la discussion seront envoyées périodiquement à la fenêtre parente (la page d'incorporation). Pour la démonstration, activez cette option et ouvrez la console de votre navigateur sur cette page. Consultez la <a>documentation</a> pour plus de détails.",
+  "placeCommentBoxAboveComments": "Placez la zone de commentaire au-dessus des commentaires",
+  "commentInputBoxWillBePlacedAboveComments": "La zone de saisie des commentaires sera placée au-dessus des commentaires, afin que les utilisateurs puissent laisser un commentaire sans faire défiler la discussion jusqu'en bas.",
+  "loadCommentsLazily": "Charger les commentaires paresseusement",
+  "loadingCommentsWillBeDeferred": "Le chargement des commentaires sera différé jusqu'à ce que l'utilisateur défile près du conteneur de commentaires. Cela se fait en ajoutant <a><code>loading=\"lazy\"</code></a> à l'élément <code><iframe></code>.",
 
   "theme": "Thème",
   "chooseAThemeThatMatches": "Choisir un thème qui correspond au site. Vous ne trouvez pas de thème adpaté ? <a>Proposer</a> un nouveau thème.",
@@ -56,11 +60,12 @@
   "warningExternalCSSUnsafe": "Attention : charger un ficher CSS externe peut être dangereux. Vérifiez que vous connaissez l'auteur et le fournisseur du fichier CSS.",
 
   "theme=light": "GitHub Light",
+  "theme=light_high_contrast": "GitHub Light High Contrast",
+  "theme=light_protanopia": "GitHub Light Colorblind",
   "theme=dark": "GitHub Dark",
-  "theme=dark_dimmed": "GitHub Dark Dimmed",
   "theme=dark_high_contrast": "GitHub Dark High Contrast",
   "theme=dark_protanopia": "GitHub Dark Colorblind",
-  "theme=light_protanopia": "GitHub Light Colorblind",
+  "theme=dark_dimmed": "GitHub Dark Dimmed",
   "theme=transparent_dark": "Transparent Dark",
   "theme=preferred_color_scheme": "Preferred color scheme",
   "theme=custom": "Personnalisé (expérimental)",

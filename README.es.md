@@ -14,7 +14,7 @@ Un sistema de comentarios desarrollado con [Discusiones de GitHub][discussions].
 > **Note:**\
 > giscus todavía está en desarrollo activo. GitHub también sigue desarrollando activamente Discusiones y su API. Por lo tanto, algunas características de giscus pueden romperse o cambiar con el tiempo.
 
-## cómo funciona
+## Cómo funciona
 
 Cuando se carga giscus, la [API de búsqueda de discusiones de GitHub][search-api] se usa para encontrar la discusión asociada con la página en función de la forma de mapeo elegida (URL, `pathname`, `<title>`, etc.). Si no se puede encontrar una discusión que coincida, el bot giscus creará automáticamente una discusión la primera vez que alguien deje un comentario o una reacción.
 
@@ -36,17 +36,17 @@ Para comentar, los visitantes deben autorizar la [aplicación de giscus][giscus-
 
 Si está usando giscus, considere [recomendar 🌟 giscus en GitHub][repo] y agrega [`giscus`][giscus-topic] topic [en tu repositorio][topic-howto]! 🎉
 
-## uso avanzado
+## Uso avanzado
 
 Puede agregar configuraciones adicionales (por ejemplo, permitir orígenes específicos) siguiendo la [guía de uso avanzado][advanced-usage].
 
 Para usar giscus con React, Vue o Svelte, consulte la [biblioteca de componentes de giscus][giscus-component].
 
-## migrando
+## Migrando
 
 Si ha utilizado anteriormente otros sistemas que usan GitHub Issues (p.ej. [utterances][utterances], [gitalk][gitalk]), puedes [convertir los issues existentes en discusiones][convert]. Después de la conversión, asegúrese de que el mapeo entre los títulos de la discusión y las páginas sea correcto, entonces giscus utilizará automáticamente las discusiones.
 
-## sitios que usan giscus
+## Sitios que usan giscus
 
 - [laymonage.com][laymonage-website]
 - [os.phil-opp.com][os-phil-opp]
@@ -54,7 +54,7 @@ Si ha utilizado anteriormente otros sistemas que usan GitHub Issues (p.ej. [utte
 - [Tech Debt Burndown Podcast][techdebtburndown]
 - [**Y muchos más!**][giscus-topic]
 
-## contribución
+## Contribución
 
 Ver [CONTRIBUTING.md][contributing]
 
@@ -78,15 +78,20 @@ Ver [CONTRIBUTING.md][contributing]
 
 Este archivo README está disponible en:
 
+- [Deutsch](README.de.md)
+- [Deutsch (Schweiz)](README.gsw.md)
 - [English](README.md)
 - [Español](README.es.md)
 - [Français](README.fr.md)
-- [Deutsch (Schweiz)](README.gsw.md)
 - [Indonesia](README.id.md)
 - [Italiano](README.it.md)
+- [日本語](README.ja.md)
 - [한국어](README.ko.md)
 - [Polski](README.pl.md)
 - [Română](README.ro.md)
+- [Русский](README.ru.md)
+- [Türkçe](README.tr.md)
+- [Tiếng Việt](README.vi.md)
 - [简体中文](README.zh-CN.md)
 - [繁體中文](README.zh-TW.md)
 

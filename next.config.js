@@ -1,7 +1,7 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
-const withPreact = require('next-plugin-preact');
+const withPrefresh = require('@prefresh/next');
 const nextTranslate = require('next-translate');
 
 const securityHeaders = [
@@ -12,10 +12,6 @@ const securityHeaders = [
   {
     key: 'X-XSS-Protection',
     value: '1; mode=block',
-  },
-  {
-    key: 'X-Frame-Options',
-    value: 'SAMEORIGIN',
   },
   {
     key: 'Permissions-Policy',
@@ -38,7 +34,7 @@ const securityHeaders = [
 const swr = 60 * 60 * 24 * 7; // 7 days
 
 module.exports = withBundleAnalyzer(
-  withPreact(
+  withPrefresh(
     nextTranslate({
       async headers() {
         return [
@@ -47,7 +43,16 @@ module.exports = withBundleAnalyzer(
             headers: securityHeaders,
           },
           {
-            source: '/themes/(.*)',
+            source: '/',
+            headers: [
+              {
+                key: 'X-Frame-Options',
+                value: 'SAMEORIGIN',
+              },
+            ],
+          },
+          {
+            source: '/(themes/(?:.*)|client\\.js)',
             headers: [
               {
                 key: 'Cache-Control',
@@ -56,6 +61,16 @@ module.exports = withBundleAnalyzer(
             ],
           },
         ];
+      },
+      webpack: (config) => {
+        config.resolve.alias = {
+          ...config.resolve.alias,
+          react: 'preact/compat',
+          'react-dom/test-utils': 'preact/test-utils',
+          'react-dom': 'preact/compat',
+        };
+
+        return config;
       },
     }),
   ),

@@ -32,6 +32,8 @@
   "loadingComments": "Loading comments…",
   "loadingPreview": "Loading preview…",
   "poweredBy": "– powered by <a>giscus</a>",
+  "oldest": "Oldest",
+  "newest": "Newest",
   "showPreviousReplies": {
     "0": "Show {{count}} previous replies",
     "one": "Show {{count}} previous reply",
@@ -59,10 +61,12 @@
   "writeAReply": "Write a reply",
 
   "upvote": "Upvote",
+  "youMustBeSignedInToUpvote": "You must be signed in to upvote.",
   "addReactions": "Add reactions",
   "pleaseWait": "Please wait…",
   "pickYourReaction": "Pick your reaction",
   "addTheReaction": "Add {{reaction}} reaction",
+  "removeTheReaction": "Remove {{reaction}} reaction",
   "signInToAddYourReaction": "<a>Sign in</a> to add your reaction.",
   "youMustBeSignedInToAddReactions": "You must be signed in to add reactions.",
   "peopleReactedWith": {

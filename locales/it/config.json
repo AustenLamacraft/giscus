@@ -1,5 +1,5 @@
 {
-  "configuration": "configurazione",
+  "configuration": "Configurazione",
 
   "language": "Lingua",
   "chooseLanguageGiscusDisplayed": "Scegli la lingua in cui verrà mostrato giscus. Non trovi la tua lingua? <a>Contribuisci</a> con una traduzione",
@@ -49,6 +49,10 @@
   "reactionsMainPostShownBeforeComments": "Le reazioni al post principale della discussione verranno mostrate prima dei commenti.",
   "emitDiscussionMetadata": "Emetti i metadati della discussione",
   "discussionMetadataSentPeriodically": "I metadati della discussione verranno inviati periodicamente alla window principale (la pagina). A scopo dimostrativo, abilita questa opzione e apri la console del tuo browser in questa pagina. Vedi <a>la documentazione</a> per maggiori dettagli.",
+  "placeCommentBoxAboveComments": "Posiziona la casella dei commenti sopra i commenti",
+  "commentInputBoxWillBePlacedAboveComments": "La casella di immissione dei commenti verrà posizionata sopra i commenti, in modo che gli utenti possano lasciare un commento senza scorrere fino in fondo alla discussione.",
+  "loadCommentsLazily": "Carica i commenti pigramente",
+  "loadingCommentsWillBeDeferred": "Il caricamento dei commenti sarà posticipato fino a quando l'utente non scorrerà vicino al contenitore dei commenti. Questo viene fatto aggiungendo <a><code>loading=\"lazy\"</code></a> all'elemento <code><iframe></code>.",
 
   "theme": "Tema",
   "chooseAThemeThatMatches": "Scegli un tema che corrisponda al tuo sito web. Non riesci a trovarne uno adatto? <a>Contribuisci</a> a un nuovo tema.",
@@ -56,11 +60,12 @@
   "warningExternalCSSUnsafe": "Nota: il caricamento di CSS esterni potrebbe non essere sicuro. Assicurati di fidarti dell'autore e del fornitore del file CSS.",
 
   "theme=light": "GitHub Chiaro",
+  "theme=light_high_contrast": "GitHub Chiaro ad alto contrasto",
+  "theme=light_protanopia": "GitHub Chiaro per daltonici",
   "theme=dark": "GitHub Scuro",
-  "theme=dark_dimmed": "GitHub più Scuro",
   "theme=dark_high_contrast": "GitHub Scuro ad alto contrasto",
   "theme=dark_protanopia": "GitHub Scuro per daltonici",
-  "theme=light_protanopia": "GitHub Chiaro per daltonici",
+  "theme=dark_dimmed": "GitHub più Scuro",
   "theme=transparent_dark": "Scuro Trasparente",
   "theme=preferred_color_scheme": "Impostazioni preferite del dispositivo",
   "theme=custom": "Personalizzato (sperimentale)",
@@ -78,5 +83,5 @@
   "[enterThemeCSSURLHere]": "[INSERISCI L'URL CSS DEL TEMA]",
 
   "youCanCustomizeTheLayout": "Puoi personalizzare il layout del container utilizzando i selettori <code>.giscus</code> e <code>.giscus-frame</code> dalla pagina.",
-  "tryItOut": "prova"
+  "tryItOut": "Prova"
 }

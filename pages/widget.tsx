@@ -6,7 +6,7 @@ import Widget from '../components/Widget';
 import { assertOrigin } from '../lib/config';
 import { ConfigContext, ThemeContext } from '../lib/context';
 import { decodeState } from '../lib/oauth/state';
-import { ISetConfigMessage } from '../lib/types/giscus';
+import { InputPosition, ISetConfigMessage } from '../lib/types/giscus';
 import { cleanSessionParam, getOriginHost } from '../lib/utils';
 import { env, Theme } from '../lib/variables';
 import { getAppAccessToken } from '../services/github/getAppAccessToken';
@@ -25,6 +25,7 @@ export async function getServerSideProps({ query, res }: GetServerSidePropsConte
   const description = (query.description as string) || '';
   const reactionsEnabled = Boolean(+query.reactionsEnabled);
   const emitMetadata = Boolean(+query.emitMetadata);
+  const inputPosition = (query.inputPosition === 'top' ? 'top' : 'bottom') as InputPosition;
   const theme = ((query.theme as string) || 'light') as Theme;
   const { origin, originHost } = getOriginHost((query.origin as string) || '');
 
@@ -48,6 +49,8 @@ export async function getServerSideProps({ query, res }: GetServerSidePropsConte
     res.setHeader('Content-Security-Policy', `frame-ancestors 'self' ${originsStr};`);
   }
 
+  const defaultCommentOrder = repoConfig.defaultCommentOrder || 'oldest';
+
   return {
     props: {
       origin,
@@ -61,6 +64,8 @@ export async function getServerSideProps({ query, res }: GetServerSidePropsConte
       description,
       reactionsEnabled,
       emitMetadata,
+      inputPosition,
+      defaultCommentOrder,
       theme,
       originHost,
     },
@@ -79,6 +84,8 @@ export default function WidgetPage({
   description,
   reactionsEnabled,
   emitMetadata,
+  inputPosition,
+  defaultCommentOrder,
   theme,
   originHost,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -86,11 +93,16 @@ export default function WidgetPage({
   const { theme: resolvedTheme, setTheme } = useContext(ThemeContext);
   const [config, setConfig] = useState<ContextType<typeof ConfigContext>>({
     repo,
+    repoId,
+    category,
+    categoryId,
+    description,
     term,
     number,
-    category,
     reactionsEnabled,
     emitMetadata,
+    inputPosition,
+    defaultCommentOrder,
   });
 
   useEffect(() => {
@@ -133,13 +145,7 @@ export default function WidgetPage({
 
       <main className="w-full mx-auto" data-theme={resolvedTheme}>
         <ConfigContext.Provider value={config}>
-          <Widget
-            origin={resolvedOrigin}
-            session={session}
-            repoId={repoId}
-            categoryId={categoryId}
-            description={description}
-          />
+          <Widget origin={resolvedOrigin} session={session} />
         </ConfigContext.Provider>
       </main>
 
@@ -147,6 +153,7 @@ export default function WidgetPage({
         src="/js/iframeResizer.contentWindow.min.js"
         integrity="sha256-rbC2imHDJIBYUIXvf+XiYY+2cXmiSlctlHgI+rrezQo="
         crossOrigin="anonymous"
+        strategy="lazyOnload"
       />
     </>
   );

@@ -10,6 +10,7 @@ import {
   useGiscusTranslation,
 } from '../lib/i18n';
 import { ICategory } from '../lib/types/adapter';
+import { InputPosition } from '../lib/types/giscus';
 import { availableThemes, Theme } from '../lib/variables';
 import { GISCUS_APP_HOST } from '../services/config';
 import { getCategories } from '../services/giscus/categories';
@@ -19,6 +20,7 @@ interface IDirectConfig {
   themeUrl: Theme;
   reactionsEnabled: boolean;
   emitMetadata: boolean;
+  inputPosition: InputPosition;
   lang: AvailableLanguage;
 }
 
@@ -40,6 +42,7 @@ interface IConfig {
   category: string;
   categoryId: string;
   useCategory: boolean;
+  lazyLoad: boolean;
 }
 
 const mappingOptions: Array<{
@@ -107,6 +110,7 @@ export default function Configuration({ directConfig, onDirectConfigChange }: IC
     category: '',
     categoryId: '',
     useCategory: true,
+    lazyLoad: false,
   });
   const [error, setError] = useState(false);
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -344,7 +348,7 @@ export default function Configuration({ directConfig, onDirectConfigChange }: IC
           !config.categoryId ? ' color-text-secondary' : ''
         }`}
       >
-        <option value="" disabled selected={!config.categoryId} data-category="">
+        <option value="" disabled data-category="">
           {config.mapping === 'number'
             ? t('categoryNotSupportedOption')
             : categories.length
@@ -409,6 +413,50 @@ export default function Configuration({ directConfig, onDirectConfigChange }: IC
               a: (
                 <a
                   href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#imetadatamessage"
+                  target="_blank"
+                  rel="noreferrer noopener nofollow"
+                />
+              ),
+            }}
+          />
+        </p>
+      </div>
+      <div className="form-checkbox">
+        <input
+          type="checkbox"
+          id="inputPosition"
+          checked={directConfig.inputPosition === 'top'}
+          value={directConfig.inputPosition}
+          onChange={(event) =>
+            onDirectConfigChange('inputPosition', event.target.checked ? 'top' : 'bottom')
+          }
+        ></input>
+        <label htmlFor="inputPosition">
+          <strong>{t('placeCommentBoxAboveComments')}</strong>
+        </label>
+        <p className="mb-0 text-xs color-text-secondary">
+          {t('commentInputBoxWillBePlacedAboveComments')}
+        </p>
+      </div>
+      <div className="form-checkbox">
+        <input
+          type="checkbox"
+          id="lazyLoad"
+          checked={config.lazyLoad}
+          onChange={(event) =>
+            setConfig((current) => ({ ...current, lazyLoad: event.target.checked }))
+          }
+        ></input>
+        <label htmlFor="lazyLoad">
+          <strong>{t('loadCommentsLazily')}</strong>
+        </label>
+        <p className="mb-0 text-xs color-text-secondary">
+          <Trans
+            i18nKey="config:loadingCommentsWillBeDeferred"
+            components={{
+              a: (
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-loading"
                   target="_blank"
                   rel="noreferrer noopener nofollow"
                 />
@@ -517,6 +565,9 @@ export default function Configuration({ directConfig, onDirectConfigChange }: IC
           <span className="pl-c1">data-emit-metadata</span>={'"'}
           <span className="pl-s">{Number(directConfig.emitMetadata)}</span>
           {'"\n        '}
+          <span className="pl-c1">data-input-position</span>={'"'}
+          <span className="pl-s">{directConfig.inputPosition}</span>
+          {'"\n        '}
           <span className="pl-c1">data-theme</span>={'"'}
           <span className="pl-s">
             {directConfig.theme === 'custom'
@@ -527,6 +578,13 @@ export default function Configuration({ directConfig, onDirectConfigChange }: IC
           <span className="pl-c1">data-lang</span>={'"'}
           <span className="pl-s">{directConfig.lang}</span>
           {'"\n        '}
+          {config.lazyLoad ? (
+            <>
+              <span className="pl-c1">data-loading</span>={'"'}
+              <span className="pl-s">lazy</span>
+              {'"\n        '}
+            </>
+          ) : null}
           <span className="pl-c1">crossorigin</span>={'"'}
           <span className="pl-s">anonymous</span>
           {'"\n        '}

@@ -100,13 +100,13 @@ export default function Comment({
                   height="30"
                   alt={`@${comment.author.login}`}
                 />
-                <span className="font-semibold Link--primary">{comment.author.login}</span>
+                <span className="font-semibold link-primary">{comment.author.login}</span>
               </a>
               <a
                 rel="nofollow noopener noreferrer"
                 target="_blank"
                 href={comment.url}
-                className="ml-2 Link--secondary"
+                className="ml-2 link-secondary"
               >
                 <time
                   className="whitespace-nowrap"
@@ -153,9 +153,11 @@ export default function Comment({
                 }
           }
         >
-          <em className="color-text-secondary">
-            {comment.deletedAt ? t('thisCommentWasDeleted') : t('thisCommentWasMinimized')}
-          </em>
+          {hidden ? (
+            <em className="color-text-secondary">
+              {comment.deletedAt ? t('thisCommentWasDeleted') : t('thisCommentWasMinimized')}
+            </em>
+          ) : null}
         </div>
         {children}
         {!comment.isMinimized && onCommentUpdate ? (
@@ -168,12 +170,17 @@ export default function Comment({
                 }`}
                 onClick={upvote}
                 disabled={!token || !comment.viewerCanUpvote}
-                aria-label={t('upvote')}
+                aria-label={token ? t('upvote') : t('youMustBeSignedInToUpvote')}
+                title={
+                  token
+                    ? t('upvotes', { count: comment.upvoteCount })
+                    : t('youMustBeSignedInToUpvote')
+                }
               >
-                <ArrowUpIcon />
+                <ArrowUpIcon className="gsc-direct-reaction-button-emoji" />
 
                 <span
-                  className="gsc-upvote-count"
+                  className="gsc-social-reaction-summary-item-count"
                   title={t('upvotes', { count: comment.upvoteCount })}
                 >
                   {comment.upvoteCount}
@@ -184,6 +191,7 @@ export default function Comment({
                   reactionGroups={comment.reactions}
                   subjectId={comment.id}
                   onReact={updateReactions}
+                  popoverPosition="top"
                 />
               ) : null}
             </div>
@@ -196,7 +204,7 @@ export default function Comment({
         ) : null}
         {comment.replies.length > 0 ? (
           <div
-            className={`color-bg-canvas-inset color-border-primary gsc-replies ${
+            className={`color-bg-inset color-border-primary gsc-replies ${
               !replyBox || hidden ? 'rounded-b-md' : ''
             }`}
           >

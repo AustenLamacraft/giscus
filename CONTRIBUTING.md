@@ -1,8 +1,8 @@
-# contributing
+# Contributing
 
-- [setup](#setup)
-- [creating new themes](#creating-new-themes)
-- [adding localizations](#adding-localizations)
+- [Setup](#setup)
+- [Creating new themes](#creating-new-themes)
+- [Adding localizations](#adding-localizations)
 
 Thanks for considering to contribute!
 
@@ -12,7 +12,7 @@ giscus works, you'll need to create a GitHub App in order to get it
 running on your machine. Follow the [self-hosting guide][self-hosting] to get
 it running.
 
-## setup
+## Setup
 
 To contribute to giscus, follow these steps:
 
@@ -32,13 +32,15 @@ Here are some commands that you can use:
 - `yarn lint`: lint and fix files
 - `yarn start`: serve the compiled build in production mode
 
-## creating new themes
+## Creating new themes
 
 If you want to submit your custom theme to giscus, create a new file in
 [`styles/themes`][themes-dir]. The file name (without `.css`) will be the
 theme's key. You can use the other theme files as reference (see
 [`custom_example.css`][example]). Once you've added the theme file, add the key
-and name to `Theme` in [`lib/variables.ts`][variables] to register it.
+and name to `Theme` in [`lib/variables.ts`][variables] to register it. Please
+also update the `config.json` in each localization in the [`locales`][locales]
+directory to include a `theme=your_theme_key` key.
 
 If you want to customize the syntax themes, you can change the CSS variables
 that start with the `--color-prettylights-syntax-` prefix. See the
@@ -60,7 +62,7 @@ so by using a [custom theme URL][custom-theme-url]. Note that you cannot
 create a nice theme, I'd appreciate it if you create a PR instead so others can
 use it easily.
 
-## adding localizations
+## Adding localizations
 
 If your language is not yet supported by giscus, please contribute a
 localization! Follow these steps to add a new localization:

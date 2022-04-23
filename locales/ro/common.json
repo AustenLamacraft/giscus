@@ -37,6 +37,8 @@
   "loadingComments": "Încărcare comentarii…",
   "loadingPreview": "Încărcare previzualizare…",
   "poweredBy": "– oferit de <a>giscus</a>",
+  "oldest": "Vechi",
+  "newest": "Nou",
   "showPreviousReplies": {
     "0": "Arată {{count}} răspunsuri anterioare",
     "one": "Arată {{count}} răspuns anterior",
@@ -66,10 +68,12 @@
   "writeAReply": "Scrie un răspuns",
 
   "upvote": "Upvote",
+  "youMustBeSignedInToUpvote": "Trebuie să fii logat pentru a vota favorabil.",
   "addReactions": "Add reactions",
   "pleaseWait": "Te rog așteaptă…",
   "pickYourReaction": "Alege reacția",
   "addTheReaction": "Add {{reaction}} reaction",
+  "removeTheReaction": "Remove {{reaction}} reaction",
   "signInToAddYourReaction": "<a>Logare</a> pentru a adăuga reacția",
   "youMustBeSignedInToAddReactions": "Trebuie să fii logat pentru a adăuga reacții.",
   "peopleReactedWith": {

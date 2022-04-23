@@ -2,6 +2,10 @@ import { AvailableLanguage } from '../i18n';
 import { Theme } from '../variables';
 import { IReactionGroups, IUser } from './adapter';
 
+export type InputPosition = 'top' | 'bottom';
+
+export type CommentOrder = 'oldest' | 'newest';
+
 export interface ITokenRequest {
   session: string;
 }
@@ -13,6 +17,7 @@ export interface ITokenResponse {
 export interface IRepoConfig {
   origins?: string[];
   originsRegex?: string[];
+  defaultCommentOrder?: CommentOrder;
 }
 
 export interface IDiscussionData {
@@ -42,16 +47,24 @@ export interface IMetadataMessage {
   viewer: IUser;
 }
 
+export interface IResizeHeightMessage {
+  resizeHeight: number;
+}
+
 // parent-to-giscus messages
 export interface ISetConfigMessage {
   setConfig: {
     theme?: Theme;
     repo?: string;
-    term?: string;
-    number?: number;
+    repoId?: string;
     category?: string;
+    categoryId?: string;
+    term?: string;
+    description?: string;
+    number?: number;
     reactionsEnabled?: boolean;
     emitMetadata?: boolean;
+    inputPosition?: InputPosition;
     lang?: AvailableLanguage;
   };
 }

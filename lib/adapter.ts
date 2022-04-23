@@ -15,6 +15,14 @@ const COPY_BUTTON_HTML = `
   </button>
 </div>`;
 
+// GitHub uses the @ghost user to replace deleted users on the website,
+// but returns `null` in the API.
+const GhostUser: GUser = {
+  avatarUrl: 'https://avatars.githubusercontent.com/u/10137?s=64&v=4',
+  login: 'ghost',
+  url: 'https://github.com/ghost',
+};
+
 export function adaptReactionGroups(reactionGroups: GReactionGroup[]): IReactionGroups {
   return reactionGroups.reduce((acc, group) => {
     acc[group.content] = {
@@ -29,22 +37,25 @@ export function adaptReply(reply: GReply): IReply {
   const {
     reactionGroups,
     replyTo: { id: replyToId },
+    author: _author,
     ...rest
   } = reply;
 
   const reactions = adaptReactionGroups(reactionGroups);
+  const author = _author || GhostUser;
 
-  return { ...rest, reactions, replyToId };
+  return { ...rest, author, reactions, replyToId };
 }
 
 export function adaptComment(comment: GComment): IComment {
-  const { replies: repliesData, reactionGroups, ...rest } = comment;
+  const { replies: repliesData, reactionGroups, author: _author, ...rest } = comment;
   const { totalCount: replyCount, nodes: replyNodes } = repliesData;
 
   const reactions = adaptReactionGroups(reactionGroups);
   const replies = replyNodes.map(adaptReply);
+  const author = _author || GhostUser;
 
-  return { ...rest, replyCount, reactions, replies };
+  return { ...rest, author, replyCount, reactions, replies };
 }
 
 export function adaptDiscussion({
@@ -130,7 +141,10 @@ export function handleCommentClick(event: ReactMouseEvent<HTMLElement, MouseEven
 
 export function processCommentBody(bodyHTML: string) {
   if (typeof document === 'undefined') {
-    return bodyHTML.replace(/<a href/g, '<a target="_top" rel="noopener noreferrer nofollow" href');
+    return bodyHTML.replace(
+      /<a (href="[^"]*")/g,
+      '<a $1 rel="noopener noreferrer nofollow" target="_top"',
+    );
   }
 
   const template = document.createElement('template');
@@ -141,14 +155,20 @@ export function processCommentBody(bodyHTML: string) {
     const currentLink = window.location.href;
 
     if (a.href.startsWith(`${currentLink}#`)) {
-      const parentLocation = window.parent.location;
-      const parentLink = parentLocation.href.replace(parentLocation.hash, '');
-      a.href = `${parentLink}${a.href.substr(currentLink.length)}`;
+      let parentLink: URL;
+      try {
+        parentLink = new URL(document.referrer);
+      } catch {
+        return;
+      }
+
+      parentLink.hash = '';
+      a.href = `${parentLink.href}${a.href.substring(currentLink.length)}`;
       return;
     }
 
-    a.target = '_top';
     a.rel = 'noopener noreferrer nofollow';
+    a.target = '_top';
   });
 
   content

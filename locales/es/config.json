@@ -1,5 +1,5 @@
 {
-  "configuration": "configuración",
+  "configuration": "Configuración",
 
   "language": "Idioma",
   "chooseLanguageGiscusDisplayed": "Selecciona el idioma en el que se mostrará giscus. ¿No encuentras tu idioma? Puedes <a>Constribuir</a> con la traducción.",
@@ -12,7 +12,7 @@
   "repositoryLabel": "repositorio:",
   "myusername/myrepo": "usuario/repositorio",
   "cannotUseGiscusOnThisRepository": "No se puede usar giscus en este repositorio. Asegúrese de que se cumplen todos los criterios anteriores.",
-  "successRepositoryMeetsCriteria": "!Perfecto! Este repositorio está preparado para usar giscus.",
+  "successRepositoryMeetsCriteria": "¡Perfecto! Este repositorio está preparado para usar giscus.",
   "aPublicGitHubRepository": "Un repositorio <strong>público</strong> de GitHub. Es el repositorio donde se vincularán las discusiones.",
 
   "pageDiscussionsMapping": "Página ↔️ Mapeo de discusiones",
@@ -49,6 +49,10 @@
   "reactionsMainPostShownBeforeComments": "Las reacciones de la publicación principal, se mostrarán antes de los comentarios.",
   "emitDiscussionMetadata": "Emitir metadatos de discusión",
   "discussionMetadataSentPeriodically": "Los metadatos de discusión se enviarán periódicamente a la ventana principal (la página de incrustación). Para una demostración, habilite esta opción y abra la consola de su navegador en esta página. Consulte <a> la documentación </a> para obtener más detalles.",
+  "placeCommentBoxAboveComments": "Coloque el cuadro de comentarios encima de los comentarios",
+  "commentInputBoxWillBePlacedAboveComments": "El cuadro de entrada de comentarios se colocará encima de los comentarios, para que los usuarios puedan dejar un comentario sin desplazarse hasta el final de la discusión.",
+  "loadCommentsLazily": "Cargar los comentarios perezosamente",
+  "loadingCommentsWillBeDeferred": "La carga de los comentarios se aplazará hasta que el usuario se desplace cerca del contenedor de comentarios. Esto se hace agregando <a><code>loading=\"lazy\"</code></a> al elemento <code><iframe></code>.",
 
   "theme": "Tema",
   "chooseAThemeThatMatches": "Selecciona un tema que coincida con su sitio web. ¿No puede encontrar uno que lo haga? <a>Contribuya</a> con un tema nuevo.",
@@ -56,11 +60,12 @@
   "warningExternalCSSUnsafe": "Advertencia: cargar CSS externo puede no ser seguro. Asegúrese de confiar en el autor y el proveedor del archivo CSS.",
 
   "theme=light": "GitHub Light",
+  "theme=light_high_contrast": "GitHub Light High Contrast",
+  "theme=light_protanopia": "GitHub Light Colorblind",
   "theme=dark": "GitHub Dark",
-  "theme=dark_dimmed": "GitHub Dark Dimmed",
   "theme=dark_high_contrast": "GitHub Dark High Contrast",
   "theme=dark_protanopia": "GitHub Dark Colorblind",
-  "theme=light_protanopia": "GitHub Light Colorblind",
+  "theme=dark_dimmed": "GitHub Dark Dimmed",
   "theme=transparent_dark": "Transparent Dark",
   "theme=preferred_color_scheme": "Preferred color scheme",
   "theme=custom": "Custom (experimental)",

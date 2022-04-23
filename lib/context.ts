@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { CommentOrder, InputPosition } from './types/giscus';
 import { Theme } from './variables';
 
 interface IAuthContext {
@@ -28,18 +29,28 @@ export const ThemeContext = createContext<IThemeContext>({
 
 interface IConfigContext {
   repo: string;
-  term: string;
-  number: number;
+  repoId: string;
   category: string;
+  categoryId: string;
+  term: string;
+  description: string;
+  number: number;
   reactionsEnabled: boolean;
   emitMetadata: boolean;
+  inputPosition: InputPosition;
+  defaultCommentOrder: CommentOrder;
 }
 
 export const ConfigContext = createContext<IConfigContext>({
   repo: '',
-  term: '',
-  number: 0,
+  repoId: '',
   category: '',
+  categoryId: '',
+  term: '',
+  description: '',
+  number: 0,
   reactionsEnabled: true,
   emitMetadata: false,
+  inputPosition: 'bottom',
+  defaultCommentOrder: 'oldest',
 });

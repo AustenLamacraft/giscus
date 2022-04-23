@@ -1,7 +1,7 @@
 {
   "reactions": {
     "0": "{{count}} reacciones",
-    "one": "{{count}} reaccion",
+    "one": "{{count}} reacción",
     "other": "{{count}} reacciones"
   },
   "comment": "Comentario",
@@ -32,6 +32,8 @@
   "loadingComments": "Cargando comentarios…",
   "loadingPreview": "Cargando vista previa…",
   "poweredBy": "– Desarrollado por <a>giscus</a>",
+  "oldest": "Antiguo",
+  "newest": "Nuevo",
   "showPreviousReplies": {
     "0": "Mostrar {{count}} respuestas anteriores",
     "one": "Mostrar {{count}} respuesta anteriores",
@@ -50,7 +52,7 @@
   "preview": "Previsualizar",
   "enableFixedWidth": "Habilite la fuente de ancho fijo (espacio único) en el editor",
   "disableFixedWidth": "Deshabilitar la fuente de ancho fijo (espacio único) en el editor",
-  "lastEditedAt": "Última modificaciòn a las {{date}}",
+  "lastEditedAt": "Última modificación a las {{date}}",
   "writeAComment": "Escribir un comentario",
   "signInToComment": "Iniciar sesión para comentar",
   "stylingWithMarkdownIsSupported": "Se admite el estilo con Markdown",
@@ -59,10 +61,12 @@
   "writeAReply": "Escribe una respuesta",
 
   "upvote": "Voto a favor",
+  "youMustBeSignedInToUpvote": "Debes iniciar sesión para votar.",
   "addReactions": "Agregar reacciones",
   "pleaseWait": "Espere por favor…",
   "pickYourReaction": "Elige tu reacción",
   "addTheReaction": "Agregar reacción de {{reaction}}",
+  "removeTheReaction": "Eliminar reacción de {{reaction}}",
   "signInToAddYourReaction": "<a> Inicie sesión</a> para agregar su reacción.",
   "youMustBeSignedInToAddReactions": "Debes iniciar sesión para agregar reacciones.",
   "peopleReactedWith": {

@@ -1,5 +1,5 @@
 {
-  "configuration": "configuration",
+  "configuration": "Configuration",
 
   "language": "Language",
   "chooseLanguageGiscusDisplayed": "Choose the language giscus will be displayed in. Can't find your language? <a>Contribute</a> a localization.",
@@ -49,6 +49,10 @@
   "reactionsMainPostShownBeforeComments": "The reactions for the discussion's main post will be shown before the comments.",
   "emitDiscussionMetadata": "Emit discussion metadata",
   "discussionMetadataSentPeriodically": "Discussion metadata will be sent periodically to the parent window (the embedding page). For demonstration, enable this option and open your browser's console on this page. See <a>the documentation</a> for more details.",
+  "placeCommentBoxAboveComments": "Place the comment box above the comments",
+  "commentInputBoxWillBePlacedAboveComments": "The comment input box will be placed above the comments, so that users can leave a comment without scrolling to the bottom of the discussion.",
+  "loadCommentsLazily": "Load the comments lazily",
+  "loadingCommentsWillBeDeferred": "Loading of the comments will be deferred until the user scrolls near the comments container. This is done by adding <a><code>loading=\"lazy\"</code></a> to the <code><iframe></code> element.",
 
   "theme": "Theme",
   "chooseAThemeThatMatches": "Choose a theme that matches your website. Can't find one that does? <a>Contribute</a> a new theme.",
@@ -56,11 +60,12 @@
   "warningExternalCSSUnsafe": "Warning: loading external CSS may be unsafe. Make sure you trust the author and provider of the CSS file.",
 
   "theme=light": "GitHub Light",
+  "theme=light_high_contrast": "GitHub Light High Contrast",
+  "theme=light_protanopia": "GitHub Light Colorblind",
   "theme=dark": "GitHub Dark",
-  "theme=dark_dimmed": "GitHub Dark Dimmed",
   "theme=dark_high_contrast": "GitHub Dark High Contrast",
   "theme=dark_protanopia": "GitHub Dark Colorblind",
-  "theme=light_protanopia": "GitHub Light Colorblind",
+  "theme=dark_dimmed": "GitHub Dark Dimmed",
   "theme=transparent_dark": "Transparent Dark",
   "theme=preferred_color_scheme": "Preferred color scheme",
   "theme=custom": "Custom (experimental)",
@@ -78,5 +83,5 @@
   "[enterThemeCSSURLHere]": "[ENTER THEME CSS URL HERE]",
 
   "youCanCustomizeTheLayout": "You can customize the container layout using the <code>.giscus</code> and <code>.giscus-frame</code> selectors from the embedding page.",
-  "tryItOut": "try it out"
+  "tryItOut": "Try it out"
 }

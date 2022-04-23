@@ -1,6 +1,6 @@
 {
   "reactions": {
-    "0": "brak reakcji",
+    "0": "Brak reakcji",
     "one": "{{count}} reakcja",
     "few": "{{count}} reakcje",
     "many": "{{count}} reakcji",
@@ -8,7 +8,7 @@
   },
   "comment": "Skomentuj",
   "comments": {
-    "0": "brak komentarzy",
+    "0": "Brak komentarzy",
     "one": "{{count}} komentarz",
     "few": "{{count}} komentarze",
     "many": "{{count}} komentarzy",
@@ -42,6 +42,8 @@
   "loadingComments": "Wczytywanie komentarzy…",
   "loadingPreview": "Wczytywanie podglądu…",
   "poweredBy": "– zasilane przez <a>giscus</a>",
+  "oldest": "Najstarszego",
+  "newest": "Najnowszego",
   "showPreviousReplies": {
     "0": "Pokaż {{count}} poprzednich odpowiedzi",
     "one": "Pokaż poprzednią odpowiedź",
@@ -73,10 +75,12 @@
   "writeAReply": "Napisz odpowiedź",
 
   "upvote": "Upvote",
+  "youMustBeSignedInToUpvote": "Musisz być zalogowany/a aby zagłosować.",
   "addReactions": "Add reactions",
   "pleaseWait": "Proszę czekać…",
   "pickYourReaction": "Wybierz reakcję",
   "addTheReaction": "Add {{reaction}} reaction",
+  "removeTheReaction": "Remove {{reaction}} reaction",
   "signInToAddYourReaction": "<a>Zaloguj się</a> aby dodać reakcję.",
   "youMustBeSignedInToAddReactions": "Musisz być zalogowany/a aby dodawać reakcje.",
   "peopleReactedWith": {

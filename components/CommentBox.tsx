@@ -14,6 +14,7 @@ interface CommentBoxProps {
   discussionId?: string;
   context?: string;
   replyToId?: string;
+  className?: string;
   onSubmit: (comment: IComment | IReply) => void;
   onDiscussionCreateRequest?: () => Promise<string>;
 }
@@ -23,6 +24,7 @@ export default function CommentBox({
   discussionId,
   context,
   replyToId,
+  className = '',
   onSubmit,
   onDiscussionCreateRequest,
 }: CommentBoxProps) {
@@ -122,9 +124,9 @@ export default function CommentBox({
 
   return !isReply || isReplyOpen ? (
     <form
-      className={`color-bg-primary color-border-primary gsc-comment-box${
-        isReply ? '' : ' border rounded'
-      }`}
+      className={`color-bg-primary color-border-primary gsc-comment-box ${
+        isReply ? 'gsc-comment-box-is-reply' : ''
+      } ${className}`}
       onSubmit={(event) => {
         event.preventDefault();
         handleSubmit();
@@ -203,7 +205,7 @@ export default function CommentBox({
       </div>
       <div className="gsc-comment-box-bottom">
         <a
-          className="Link--secondary gsc-comment-box-markdown-hint"
+          className="link-secondary gsc-comment-box-markdown-hint"
           rel="nofollow noopener noreferrer"
           target="_blank"
           href="https://guides.github.com/features/mastering-markdown/"
@@ -214,7 +216,7 @@ export default function CommentBox({
         <div className="gsc-comment-box-buttons">
           {isReply ? (
             <button
-              className="px-4 py-[5px] ml-1 border rounded-md btn"
+              className="ml-1 border rounded-md btn"
               onClick={() => setIsReplyOpen(false)}
               type="button"
             >
@@ -223,7 +225,7 @@ export default function CommentBox({
           ) : null}
           {token ? (
             <button
-              className="px-4 py-[5px] ml-1 border rounded-md items-center btn btn-primary"
+              className="ml-1 border rounded-md items-center btn btn-primary"
               type="submit"
               disabled={(token && !input.trim()) || isSubmitting}
             >
@@ -231,7 +233,7 @@ export default function CommentBox({
             </button>
           ) : (
             <a
-              className="px-4 py-[5px] ml-1 border hover:no-underline rounded-md inline-flex items-center btn btn-primary"
+              className="ml-1 border hover:no-underline rounded-md inline-flex items-center btn btn-primary"
               target="_top"
               href={loginUrl}
             >

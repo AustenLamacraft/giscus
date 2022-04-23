@@ -61,13 +61,13 @@ export default function Reply({ reply, onReplyUpdate }: IReplyProps) {
                   href={reply.author.url}
                   className="flex items-center"
                 >
-                  <span className="font-semibold Link--primary">{reply.author.login}</span>
+                  <span className="font-semibold link-primary">{reply.author.login}</span>
                 </a>
                 <a
                   rel="nofollow noopener noreferrer"
                   target="_blank"
                   href={reply.url}
-                  className="ml-2 Link--secondary"
+                  className="ml-2 link-secondary"
                 >
                   <time
                     className="whitespace-nowrap"
@@ -108,13 +108,15 @@ export default function Reply({ reply, onReplyUpdate }: IReplyProps) {
             </div>
           ) : null}
           <div
-            className={`markdown gsc-reply-content ${!hidden ? ' not-shown' : ''}`}
+            className={`markdown gsc-reply-content ${hidden ? ' not-shown' : ''}`}
             onClick={handleCommentClick}
             dangerouslySetInnerHTML={hidden ? undefined : { __html: renderedReply }}
           >
-            <em className="color-text-secondary">
-              {reply.deletedAt ? t('thisCommentWasDeleted') : t('thisCommentWasHidden')}
-            </em>
+            {hidden ? (
+              <em className="color-text-secondary">
+                {reply.deletedAt ? t('thisCommentWasDeleted') : t('thisCommentWasHidden')}
+              </em>
+            ) : null}
           </div>
           {!hidden ? (
             <div className="gsc-reply-reactions">

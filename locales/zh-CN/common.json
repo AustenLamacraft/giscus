@@ -22,6 +22,8 @@
   "loadingComments": "正在加载评论……",
   "loadingPreview": "正在加载预览……",
   "poweredBy": "– 由 <a>giscus</a> 驱动",
+  "oldest": "最旧",
+  "newest": "最新",
   "showPreviousReplies": {
     "other": "显示 {{count}} 条更早的回复"
   },
@@ -45,10 +47,12 @@
   "writeAReply": "写回复",
 
   "upvote": "赞同",
+  "youMustBeSignedInToUpvote": "你必须登录才能投票。",
   "addReactions": "添加反应",
   "pleaseWait": "请稍候……",
   "pickYourReaction": "选择你的反应",
   "addTheReaction": "表示 {{reaction}}",
+  "removeTheReaction": "取消表示 {{reaction}}",
   "signInToAddYourReaction": "<a>登录</a>以添加反应。",
   "youMustBeSignedInToAddReactions": "你必须登录才能添加反应。",
   "peopleReactedWith": {
