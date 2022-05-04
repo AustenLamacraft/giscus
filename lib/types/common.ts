@@ -11,3 +11,7 @@ export interface DiscussionQuery {
   number: number;
   category: string;
 }
+
+export interface DiscussionsQuery {
+  repo: string;
+}
