@@ -3,32 +3,91 @@ import { GUser, GRepositoryDiscussion, GError, GMultipleErrors } from '../../lib
 import { parseRepoWithOwner } from '../../lib/utils';
 import { GITHUB_GRAPHQL_API_URL } from '../config';
 
-
-
 const DISCUSSIONS_QUERY = `
   repository(owner: $owner, name: $name) {
     discussions(first: 10, orderBy: {field: UPDATED_AT, direction: DESC}) {
       nodes {
+        id
+        url
         title
-        createdAt
-        updatedAt
+        bodyHTML
+        locked
+        repository {
+          nameWithOwner
+        }
+        reactions {
+          totalCount
+        }
+        reactionGroups {
+          content
+          users {
+            totalCount
+          }
+          viewerHasReacted
+        }
         comments(last: 1) {
-            nodes {
-                author {
-                    login
-                }
-                createdAt
-                updatedAt
-                replies(last: 1) {
-                    nodes {
-                        author {
-                            login
-                        }
-                    createdAt
-                    updatedAt
-                    }
-                }
+          totalCount
+          pageInfo {
+            startCursor
+            hasNextPage
+            hasPreviousPage
+            endCursor
+          }
+          nodes {
+            id
+            upvoteCount
+            viewerHasUpvoted
+            viewerCanUpvote
+            author {
+              avatarUrl
+              login
+              url
             }
+            viewerDidAuthor
+            createdAt
+            url
+            authorAssociation
+            lastEditedAt
+            deletedAt
+            isMinimized
+            body
+            reactionGroups {
+              content
+              users {
+                totalCount
+              }
+              viewerHasReacted
+            }
+            replies(last: 1) {
+              totalCount
+              nodes {
+                id
+                author {
+                  avatarUrl
+                  login
+                  url
+                }
+                viewerDidAuthor
+                createdAt
+                url
+                authorAssociation
+                lastEditedAt
+                deletedAt
+                isMinimized
+                body
+                reactionGroups {
+                  content
+                  users {
+                    totalCount
+                  }
+                  viewerHasReacted
+                }
+                replyTo {
+                  id
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -36,7 +95,6 @@ const DISCUSSIONS_QUERY = `
 `;
 
 export interface GetDiscussionsParams extends PaginationParams, DiscussionsQuery {}
-
 
 const GET_DISCUSSIONS_QUERY = `
   query($owner: String! $name: String!) {
@@ -48,12 +106,13 @@ const GET_DISCUSSIONS_QUERY = `
     ${DISCUSSIONS_QUERY}
   }`;
 
-
 interface GetDiscussionsResponse {
   data: {
     viewer: GUser;
     repository: {
-      discussion: GRepositoryDiscussion;
+      discussions: {
+        nodes: Array<GRepositoryDiscussion>;
+      };
     };
   };
 }
@@ -67,7 +126,6 @@ export async function getDiscussions(
   // Force repo to lowercase to prevent GitHub's bug when using category in query.
   // https://github.com/giscus/giscus/issues/118
   const repo = repoWithOwner.toLowerCase();
-  
   const query = `repo:${repo}`;
   const gql = GET_DISCUSSIONS_QUERY;
 

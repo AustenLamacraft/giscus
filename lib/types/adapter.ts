@@ -56,6 +56,8 @@ export interface IGiscussion {
     id: string;
     url: string;
     locked: boolean;
+    title: string;
+    bodyHTML: string;
     totalCommentCount: number;
     totalReplyCount: number;
     pageInfo: {

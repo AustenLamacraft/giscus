@@ -84,7 +84,6 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
               />
               <span className="font-semibold link-primary">{comment.author.login}</span>
             </a>
-              {' '} commented {' '}
             {comment.authorAssociation !== 'NONE' ? (
               <div className="hidden ml-2 text-xs sm:inline-flex">
                 <span
@@ -96,6 +95,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
                 </span>
               </div>
             ) : null}
+            {' '} commented {' '}
             <time
               className="whitespace-nowrap"
               title={formatDate(comment.createdAt)}

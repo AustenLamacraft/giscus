@@ -1,10 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
-import { SWRConfig } from 'swr';
+import useSWR, { SWRConfig } from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import { cleanParams, fetcher } from '../../lib/fetcher';
 import { Reaction, updateDiscussionReaction } from '../../lib/reactions';
 import { IComment, IGiscussion, IReply } from '../../lib/types/adapter';
-import { DiscussionQuery, PaginationParams } from '../../lib/types/common';
+import { GDiscussionSummary } from '../../lib/types/github'
+import { DiscussionQuery, PaginationParams, DiscussionsQuery } from '../../lib/types/common';
 import { CommentOrder, IDiscussionData } from '../../lib/types/giscus';
 
 export function useDiscussion(
@@ -298,5 +299,49 @@ export function useFrontBackDiscussion(
     isLocked,
     discussion,
     viewer,
+  };
+}
+
+export function useDiscussionsSummary(query: DiscussionsQuery, token?: string) {
+  const [errorStatus, setErrorStatus] = useState(0);
+  const urlParams = new URLSearchParams(cleanParams({ ...query }));
+
+  const headers = useMemo(() => {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    return { headers };
+  }, [token]);
+
+  const getKey = [`/api/discussions/latest?${urlParams}`, headers];
+
+  const shouldRevalidate = (status: number) => ![403, 404, 429].includes(status);
+
+  const { data, error, isValidating } = useSWR<IGiscussion[]>(
+    getKey,
+    fetcher,
+    {
+      onErrorRetry: (err, key, config, revalidate, opts) => {
+        if (!shouldRevalidate(err?.status)) return;
+        SWRConfig.default.onErrorRetry(err, key, config, revalidate, opts);
+      },
+      revalidateOnMount: shouldRevalidate(errorStatus),
+      revalidateOnFocus: shouldRevalidate(errorStatus),
+      revalidateOnReconnect: shouldRevalidate(errorStatus),
+    },
+  );
+
+  if (error?.status && error.status !== errorStatus) {
+    setErrorStatus(error.status);
+  } else if (!error?.status && errorStatus) {
+    setErrorStatus(0); // Clear error
+  }
+
+  return {
+    discussions: data,
+    isValidating,
+    isLoading: !error && !data,
+    isError: !!error,
+    isNotFound: error?.status === 404,
+    isRateLimited: error?.status === 429,
+    error,
   };
 }

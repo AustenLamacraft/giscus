@@ -1,3 +1,15 @@
+
+# tripos-comments
+
+A fork of [giscus][giscus] with
+
+1. Rendering of LaTeX in comments.
+2. A `Summary` component that shows recent comments.
+
+To switch from the conventional view to the summary view, toggle the `data-discussions-summary` property in the script that inserts the comment widget.
+
+---
+
 # [giscus][giscus]
 
 A comments system powered by [GitHub Discussions][discussions]. Let visitors leave comments and reactions on your website via GitHub! Heavily inspired by [utterances][utterances].

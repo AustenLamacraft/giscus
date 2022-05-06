@@ -29,6 +29,8 @@ export async function getServerSideProps({ query, res }: GetServerSidePropsConte
   const theme = ((query.theme as string) || 'light') as Theme;
   const { origin, originHost } = getOriginHost((query.origin as string) || '');
 
+  const discussionsSummary = Boolean(+query.discussionsSummary);
+
   const { encryption_password } = env;
   const token = await decodeState(session, encryption_password)
     .catch(() => getAppAccessToken(repo))
@@ -68,6 +70,7 @@ export async function getServerSideProps({ query, res }: GetServerSidePropsConte
       defaultCommentOrder,
       theme,
       originHost,
+      discussionsSummary,
     },
   };
 }
@@ -88,6 +91,7 @@ export default function WidgetPage({
   defaultCommentOrder,
   theme,
   originHost,
+  discussionsSummary,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const resolvedOrigin = origin || (typeof location === 'undefined' ? '' : location.href);
   const { theme: resolvedTheme, setTheme } = useContext(ThemeContext);
@@ -103,6 +107,7 @@ export default function WidgetPage({
     emitMetadata,
     inputPosition,
     defaultCommentOrder,
+    discussionsSummary,
   });
 
   useEffect(() => {

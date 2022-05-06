@@ -138,10 +138,10 @@ export default function Home({
         <div id="comments" className="w-full my-8 giscus" />
         <Script
           src="/client.js"
-          data-repo="AustenLamacraft/dooftown"
-          data-repo-id="MDEwOlJlcG9zaXRvcnkyMDcyOTM3MTQ="
+          data-repo="tripos-education/maths-tripos-questions"
+          data-repo-id="R_kgDOHNk5nA"
           data-category="Announcements"
-          data-category-id="DIC_kwDODFsNEs4B_-r4"
+          data-category-id="DIC_kwDOHNk5nM4COydD"
           data-mapping="specific"
           data-term="Welcome to giscus!"
           data-theme="light"
@@ -149,6 +149,7 @@ export default function Home({
           data-emit-metadata="0"
           data-input-position="bottom"
           data-lang={locale}
+          data-discussions-summary="1"
         />
         <a
           className="block mx-auto mb-6 w-max"

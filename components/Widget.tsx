@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import Giscus from '../components/Giscus';
+import Summary from '../components/Summary';
 import { AuthContext, ConfigContext, getLoginUrl } from '../lib/context';
 import { emitData } from '../lib/messages';
 import { IErrorMessage, IResizeHeightMessage } from '../lib/types/giscus';
@@ -14,7 +15,7 @@ interface IWidgetProps {
 
 export default function Widget({ origin, session }: IWidgetProps) {
   const [token, setToken] = useState('');
-  const { repo, repoId, categoryId, description, term, number } = useContext(ConfigContext);
+  const { repo, repoId, categoryId, description, term, number, discussionsSummary } = useContext(ConfigContext);
 
   const handleDiscussionCreateRequest = async () =>
     createDiscussion(repo, {
@@ -54,7 +55,11 @@ export default function Widget({ origin, session }: IWidgetProps) {
 
   return ready ? (
     <AuthContext.Provider value={{ token, origin, getLoginUrl }}>
-      <Giscus onDiscussionCreateRequest={handleDiscussionCreateRequest} onError={handleError} />
+      {discussionsSummary ? (
+        <Summary onError={handleError} />
+      ) : (
+        <Giscus onDiscussionCreateRequest={handleDiscussionCreateRequest} onError={handleError} />
+      )}
     </AuthContext.Provider>
   ) : null;
 }
