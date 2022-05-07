@@ -11,9 +11,9 @@ interface ISummaryProps {
 export default function Summary({ onError }: ISummaryProps) {
   const { token, origin } = useContext(AuthContext);
   const { t } = useGiscusTranslation();
-  const { repo, discussionsSummary } = useContext(ConfigContext);
+  const { repo, discussionsSummary, categoryId } = useContext(ConfigContext);
   // const [orderBy, setOrderBy] = useState<CommentOrder>(defaultCommentOrder);
-  const query = { repo, number: discussionsSummary };
+  const query = { repo, number: discussionsSummary, categoryId };
 
   const { ...data } = useDiscussionsSummary(query, token);
 
@@ -61,7 +61,7 @@ export default function Summary({ onError }: ISummaryProps) {
         </div>
         <div className="gsc-timeline">
           {!data.isLoading
-            ? data.discussions
+            ? data?.discussions
                 .filter((discussion) => {
                   const comment = discussion.discussion.comments[0];
                   return !!comment && !comment.deletedAt;

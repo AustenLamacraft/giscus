@@ -14,7 +14,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
   const formatDateDistance = useRelativeTimeFormatter();
 
   const comment = discussion.comments[0];
-  const discussionHref = cheerio.load(discussion.bodyHTML)('a')[0].attribs.href;
+  const discussionHref = cheerio.load(discussion.bodyHTML)('a')[0]?.attribs.href;
   // const [backPage, setBackPage] = useState(0);
 
   // const replies = comment.replies.slice(-5 - backPage * 50);
@@ -123,14 +123,18 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
               comment.isMinimized ? ' minimized color-bg-tertiary border-color-primary' : ''
             }`}
           >
-            <a
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-              href={discussionHref}
-              className="ml-2 link"
-            >
-              {discussion.title}
-            </a>
+            {discussionHref ? (
+              <a
+                rel="nofollow noopener noreferrer"
+                target="_blank"
+                href={discussionHref}
+                className="ml-2 link"
+              >
+                {discussion.title}
+              </a>
+            ) : (
+              <span>{discussion.title}</span>
+            )}
           </div>
           {children}
           {/* {!comment.isMinimized ? (

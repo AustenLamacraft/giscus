@@ -5,7 +5,7 @@ import { GITHUB_GRAPHQL_API_URL } from '../config';
 
 const DISCUSSIONS_QUERY = `
   repository(owner: $owner, name: $name) {
-    discussions(first: $number, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    discussions(first: $number, categoryId: $categoryId, orderBy: {field: UPDATED_AT, direction: DESC}) {
       nodes {
         id
         url
@@ -97,7 +97,7 @@ const DISCUSSIONS_QUERY = `
 export interface GetDiscussionsParams extends PaginationParams, DiscussionsQuery {}
 
 const GET_DISCUSSIONS_QUERY = `
-  query($owner: String! $name: String!, $number: Int!) {
+  query($owner: String! $name: String!, $number: Int!, $categoryId: ID!) {
     viewer {
       avatarUrl
       login
@@ -121,12 +121,12 @@ export async function getDiscussions(
   params: GetDiscussionsParams,
   token: string,
 ): Promise<GetDiscussionsResponse | GError | GMultipleErrors> {
-  const { repo: repoWithOwner, number, ...pagination } = params;
+  const { repo: repoWithOwner, number, categoryId, ...pagination } = params;
 
   // Force repo to lowercase to prevent GitHub's bug when using category in query.
   // https://github.com/giscus/giscus/issues/118
   const repo = repoWithOwner.toLowerCase();
-  const query = `repo:${repo} number:${number}`;
+  const query = `repo:${repo} number:${number}, categoryId:${categoryId}`;
   const gql = GET_DISCUSSIONS_QUERY;
 
   return fetch(GITHUB_GRAPHQL_API_URL, {
@@ -138,6 +138,7 @@ export async function getDiscussions(
       variables: {
         repo,
         number,
+        categoryId,
         query,
         ...parseRepoWithOwner(repo), // returns { owner, name }
         ...pagination,
