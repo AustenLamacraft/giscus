@@ -1,5 +1,4 @@
-import { ReactNode, useContext } from 'react';
-import { AuthContext } from '../lib/context';
+import { ReactNode } from 'react';
 import { useDateFormatter, useGiscusTranslation, useRelativeTimeFormatter } from '../lib/i18n';
 import { IGiscussion } from '../lib/types/adapter';
 import cheerio from 'cheerio';
@@ -62,7 +61,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
   //   });
   // }, [comment.body]);
 
-  const hidden = !!comment.deletedAt || comment.isMinimized;
+  // const hidden = !!comment.deletedAt || comment.isMinimized;
 
   return (
     <>
@@ -96,7 +95,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
                   </span>
                 </div>
               ) : null}
-              {' '} commented{' '}
+              {' commented '}
               <time
                 className="whitespace-nowrap"
                 title={formatDate(comment.createdAt)}
@@ -145,7 +144,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
           ) : null} */}
         </div>
       </div>
-      <hr/>
+      <hr />
     </>
   );
 }

@@ -15,7 +15,8 @@ interface IWidgetProps {
 
 export default function Widget({ origin, session }: IWidgetProps) {
   const [token, setToken] = useState('');
-  const { repo, repoId, categoryId, description, term, number, discussionsSummary } = useContext(ConfigContext);
+  const { repo, repoId, categoryId, description, term, number, discussionsSummary } =
+    useContext(ConfigContext);
 
   const handleDiscussionCreateRequest = async () =>
     createDiscussion(repo, {
