@@ -14,6 +14,7 @@ export default function Summary({ onError }: ISummaryProps) {
   const { t } = useGiscusTranslation();
   const {
     repo,
+    discussionsSummary,
     term,
     number,
     category,
@@ -23,7 +24,7 @@ export default function Summary({ onError }: ISummaryProps) {
     defaultCommentOrder,
   } = useContext(ConfigContext);
   const [orderBy, setOrderBy] = useState<CommentOrder>(defaultCommentOrder);
-  const query = { repo };
+  const query = { repo, number: discussionsSummary };
 
   const { ...data } = useDiscussionsSummary(query, token);
 

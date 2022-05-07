@@ -4,7 +4,6 @@ import useSWRInfinite from 'swr/infinite';
 import { cleanParams, fetcher } from '../../lib/fetcher';
 import { Reaction, updateDiscussionReaction } from '../../lib/reactions';
 import { IComment, IGiscussion, IReply } from '../../lib/types/adapter';
-import { GDiscussionSummary } from '../../lib/types/github'
 import { DiscussionQuery, PaginationParams, DiscussionsQuery } from '../../lib/types/common';
 import { CommentOrder, IDiscussionData } from '../../lib/types/giscus';
 
@@ -305,7 +304,6 @@ export function useFrontBackDiscussion(
 export function useDiscussionsSummary(query: DiscussionsQuery, token?: string) {
   const [errorStatus, setErrorStatus] = useState(0);
   const urlParams = new URLSearchParams(cleanParams({ ...query }));
-
   const headers = useMemo(() => {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     return { headers };
@@ -315,19 +313,15 @@ export function useDiscussionsSummary(query: DiscussionsQuery, token?: string) {
 
   const shouldRevalidate = (status: number) => ![403, 404, 429].includes(status);
 
-  const { data, error, isValidating } = useSWR<IGiscussion[]>(
-    getKey,
-    fetcher,
-    {
-      onErrorRetry: (err, key, config, revalidate, opts) => {
-        if (!shouldRevalidate(err?.status)) return;
-        SWRConfig.default.onErrorRetry(err, key, config, revalidate, opts);
-      },
-      revalidateOnMount: shouldRevalidate(errorStatus),
-      revalidateOnFocus: shouldRevalidate(errorStatus),
-      revalidateOnReconnect: shouldRevalidate(errorStatus),
+  const { data, error, isValidating } = useSWR<IGiscussion[]>(getKey, fetcher, {
+    onErrorRetry: (err, key, config, revalidate, opts) => {
+      if (!shouldRevalidate(err?.status)) return;
+      SWRConfig.default.onErrorRetry(err, key, config, revalidate, opts);
     },
-  );
+    revalidateOnMount: shouldRevalidate(errorStatus),
+    revalidateOnFocus: shouldRevalidate(errorStatus),
+    revalidateOnReconnect: shouldRevalidate(errorStatus),
+  });
 
   if (error?.status && error.status !== errorStatus) {
     setErrorStatus(error.status);

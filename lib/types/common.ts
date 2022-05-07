@@ -14,4 +14,5 @@ export interface DiscussionQuery {
 
 export interface DiscussionsQuery {
   repo: string;
+  number: number;
 }

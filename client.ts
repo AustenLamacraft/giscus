@@ -46,7 +46,7 @@
   params.description = ogDescriptionMeta ? ogDescriptionMeta.content : '';
 
   params.discussionsSummary = attributes.discussionsSummary || '0';
-
+  
   switch (attributes.mapping) {
     case 'url':
       params.term = cleanedLocation;

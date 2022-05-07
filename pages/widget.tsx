@@ -29,7 +29,7 @@ export async function getServerSideProps({ query, res }: GetServerSidePropsConte
   const theme = ((query.theme as string) || 'light') as Theme;
   const { origin, originHost } = getOriginHost((query.origin as string) || '');
 
-  const discussionsSummary = Boolean(+query.discussionsSummary);
+  const discussionsSummary = Number(query.discussionsSummary);
 
   const { encryption_password } = env;
   const token = await decodeState(session, encryption_password)
