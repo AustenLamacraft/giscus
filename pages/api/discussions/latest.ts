@@ -10,7 +10,7 @@ async function get(req: NextApiRequest, res: NextApiResponse<Array<IGiscussion> 
   const params = {
     repo: req.query.repo as string,
     number: +req.query.number,
-    categoryId: req.query.categoryId,
+    categoryId: req.query.categoryId as string,
     first: +req.query.first,
     last: +req.query.last,
     after: req.query.after as string,
