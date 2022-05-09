@@ -23,7 +23,7 @@ export default function Widget({ origin, session }: IWidgetProps) {
       repositoryId: repoId,
       categoryId,
       title: term,
-      body: `# ${term}\n\n${description || ''}\n\n${cleanAnchor(origin)}`,
+      body: `${description || ''}\n\n${cleanAnchor(origin)}`,
     });
 
   const handleError = useCallback(

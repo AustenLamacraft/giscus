@@ -15,6 +15,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
 
   const comment = discussion.comments[0];
   const discussionHref = cheerio.load(discussion.bodyHTML)('a')[0]?.attribs.href;
+  const discussionDescription = cheerio.load(discussion.bodyHTML)('p').contents().first().text();
   // const [backPage, setBackPage] = useState(0);
 
   // const replies = comment.replies.slice(-5 - backPage * 50);
@@ -66,7 +67,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
   return (
     <>
       <div className="gsc-comment">
-        <div className={`w-full min-w-0`}>
+        <div className={'w-full min-w-0'}>
           <div className="gsc-comment-header">
             <div className="gsc-comment-author" style={{ whiteSpace: 'pre-wrap' }}>
               <a
@@ -84,18 +85,18 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
                 />
                 <span className="font-semibold link-primary">{comment.author.login}</span>
               </a>
-              {comment.authorAssociation !== 'NONE' ? (
-                <div className="hidden ml-2 text-xs sm:inline-flex">
+              <div className="hidden ml-2 sm:inline-flex">
+                {comment.authorAssociation !== 'NONE' ? (
                   <span
-                    className={`px-1 ml-1 capitalize border rounded-md ${
+                    className={`text-xs px-1 ml-1 capitalize border rounded-md ${
                       comment.viewerDidAuthor ? 'color-box-border-info' : 'color-label-border'
                     }`}
                   >
                     {t(comment.authorAssociation)}
                   </span>
-                </div>
-              ) : null}
-              {' commented '}
+                ) : null}
+                {'commented'}
+              </div>{', '}
               <time
                 className="whitespace-nowrap"
                 title={formatDate(comment.createdAt)}
@@ -130,10 +131,10 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
                 href={discussionHref}
                 className="ml-2 link"
               >
-                {discussion.title}
+                {discussionDescription}
               </a>
             ) : (
-              <span>{discussion.title}</span>
+              <span>{discussionDescription}</span>
             )}
           </div>
           {children}
