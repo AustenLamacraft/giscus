@@ -96,7 +96,8 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
                   </span>
                 ) : null}
                 {'commented'}
-              </div>{', '}
+              </div>
+              {', '}
               <time
                 className="whitespace-nowrap"
                 title={formatDate(comment.createdAt)}
