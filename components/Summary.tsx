@@ -9,7 +9,7 @@ interface ISummaryProps {
 }
 
 export default function Summary({ onError }: ISummaryProps) {
-  const { token, origin } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const { t } = useGiscusTranslation();
   const { repo, discussionsSummary, categoryId } = useContext(ConfigContext);
   // const [orderBy, setOrderBy] = useState<CommentOrder>(defaultCommentOrder);

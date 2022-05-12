@@ -24,9 +24,7 @@ export default function Reply({ reply, onReplyUpdate }: IReplyProps) {
 
   const [renderedReply, setRenderedComment] = useState(undefined);
   useEffect(() => {
-    renderMarkdown(reply.body).then((value) => {
-      setRenderedComment(processCommentBody(value));
-    });
+    setRenderedComment(processCommentBody(renderMarkdown(reply.body)));
   }, [reply.body]);
 
   const hidden = reply.deletedAt || reply.isMinimized;

@@ -70,9 +70,7 @@ export default function Comment({
 
   const [renderedComment, setRenderedComment] = useState(undefined);
   useEffect(() => {
-    renderMarkdown(comment.body).then((value) => {
-      setRenderedComment(processCommentBody(value));
-    });
+    setRenderedComment(processCommentBody(renderMarkdown(comment.body)));
   }, [comment.body]);
 
   const hidden = !!comment.deletedAt || comment.isMinimized;

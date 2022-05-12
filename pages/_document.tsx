@@ -22,6 +22,23 @@ class CustomDocument extends Document {
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="stylesheet" href={themeUrl} crossOrigin="anonymous" id="giscus-theme" />
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"
+            integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB"
+            crossOrigin="anonymous"
+          ></link>
+          <link
+            href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.css"
+            rel="stylesheet"
+            type="text/css"
+          />
+          <script
+            src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js"
+            integrity="sha384-Ep9Es0VCjVn9dFeaN2uQxgGcGmG+pfZ4eBaHxUpxXDORrrVACZVOpywyzvFRGbmv"
+            crossOrigin="anonymous"
+            async
+          ></script>
         </Head>
         <body>
           <Main />
