@@ -1,21 +1,19 @@
-import { unified } from 'unified';
-import parse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import math from 'remark-math';
-import katex from 'rehype-katex';
-import rehypeStringify from 'rehype-stringify';
-import rehypeDocument from 'rehype-document';
+// import { unified } from 'unified';
+// import parse from 'remark-parse';
+// import remarkRehype from 'remark-rehype';
+// import math from 'remark-math';
+// import katex from 'rehype-katex';
+// import rehypeStringify from 'rehype-stringify';
+// import rehypeDocument from 'rehype-document';
+
+import { micromark } from 'micromark';
+import { math, mathHtml } from 'micromark-extension-math';
+import { gfm, gfmHtml } from 'micromark-extension-gfm';
 
 export function renderMarkdown(text: string) {
-  return unified()
-    .use(parse)
-    .use(math)
-    .use(remarkRehype)
-    .use(katex)
-    .use(rehypeDocument, {
-      css: 'https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css',
-    })
-    .use(rehypeStringify)
-    .process(text)
-    .then((file) => file.toString());
+  return micromark(text, {
+    allowDangerousHtml: true,
+    extensions: [gfm(), math()],
+    htmlExtensions: [gfmHtml(), mathHtml()],
+  });
 }
