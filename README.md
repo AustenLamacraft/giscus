@@ -7,6 +7,10 @@ A fork of [giscus][giscus] with
 
 To switch from the conventional view to the summary view of the latest comments, set the `data-discussions-summary` property to the number of recent comments you want to display. `0` gives the usual view. 
 
+## TODOs
+
+- [ ] deal with dangerous HTML in comments.
+
 # [giscus][giscus]
 
 A comments system powered by [GitHub Discussions][discussions]. Let visitors leave comments and reactions on your website via GitHub! Heavily inspired by [utterances][utterances].

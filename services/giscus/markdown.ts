@@ -14,6 +14,6 @@ export function renderMarkdown(text: string) {
   return micromark(text, {
     allowDangerousHtml: true,
     extensions: [gfm(), math()],
-    htmlExtensions: [gfmHtml(), mathHtml()],
+    htmlExtensions: [gfmHtml(), mathHtml({ throwOnError: false })],
   });
 }
