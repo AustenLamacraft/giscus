@@ -64,15 +64,10 @@ export default function Summary({ onError }: ISummaryProps) {
   return (
     <div className="color-text-primary gsc-main">
       <div className="gsc-comments">
-        <div className="gsc-header">
-          <div className="gsc-left-header">
-            <h3 className="gsc-comments-count">Latest comments</h3>
-          </div>
-        </div>
         <div className="gsc-comment-box-main">
           <textarea
             className="form-control input-contrast gsc-comment-box-search"
-            placeholder={'Search comments'}
+            placeholder={'Search commented discussions'}
             rows={1}
             value={input}
             onChange={(event) => setInput(event.target.value)}
@@ -85,6 +80,11 @@ export default function Summary({ onError }: ISummaryProps) {
               }
             }}
           ></textarea>
+        </div>
+        <div className="gsc-header">
+          <div className="gsc-left-header">
+            <h3 className="gsc-comments-count">Latest comments</h3>
+          </div>
         </div>
         {data.isLoading ? (
           <div className="gsc-loading">
