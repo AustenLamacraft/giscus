@@ -140,16 +140,15 @@ export default function Home({
           src="/client.js"
           data-repo="tripos-education/maths-tripos-questions"
           data-repo-id="R_kgDOHNk5nA"
-          data-category="Announcements"
-          data-category-id="DIC_kwDOHNk5nM4COydD"
-          data-mapping="specific"
-          data-term="Welcome to giscus!"
+          data-category="Question comments"
+          data-category-id="DIC_kwDOHNk5nM4CO-nf"
+          data-mapping="pathname"
           data-theme="light"
           data-reactions-enabled="1"
           data-emit-metadata="0"
           data-input-position="bottom"
           data-lang={locale}
-          data-discussions-summary="0"
+          data-discussions-summary="50"
         />
         <a
           className="block mx-auto mb-6 w-max"

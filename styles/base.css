@@ -553,6 +553,10 @@ img.emoji {
   @apply w-full p-2 border rounded min-h-[100px] max-h-[500px] disabled:cursor-not-allowed;
 }
 
+.gsc-comment-box-search {
+  @apply w-full p-2 border rounded disabled:cursor-not-allowed;
+}
+
 .gsc-comment-box-bottom {
   @apply flex items-center justify-between m-2;
 }

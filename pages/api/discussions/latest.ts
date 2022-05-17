@@ -11,6 +11,8 @@ async function get(req: NextApiRequest, res: NextApiResponse<Array<IGiscussion> 
     repo: req.query.repo as string,
     number: +req.query.number,
     categoryId: req.query.categoryId as string,
+    category: req.query.category as string,
+    term: req.query.term as string,
     first: +req.query.first,
     last: +req.query.last,
     after: req.query.after as string,
@@ -67,8 +69,8 @@ async function get(req: NextApiRequest, res: NextApiResponse<Array<IGiscussion> 
   }
 
   const viewer = data.viewer;
-  const discussions = data.repository.discussions.nodes;
-  const adapted = discussions.map((discussion) => adaptDiscussion({ viewer, discussion }));
+  const discussions = data.repository ? data.repository.discussions?.nodes : data.search?.nodes;
+  const adapted = discussions?.map((discussion) => adaptDiscussion({ viewer, discussion }));
   res.status(200).json(adapted);
 }
 
