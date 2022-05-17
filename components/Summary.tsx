@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback, useRef, useState, ChangeEvent } from 'react';
+import { useContext, useEffect, useRef, useState, ChangeEvent } from 'react';
 import { AuthContext, ConfigContext } from '../lib/context';
 import { useGiscusTranslation } from '../lib/i18n';
 import { useDiscussionsSummary } from '../services/giscus/discussions';
@@ -33,7 +33,6 @@ export default function Summary({ onError }: ISummaryProps) {
     }
   }, [input]);
 
-
   // useEffect(() => {
   //   if (!emitMetadata || !data.discussion.id) return;
   //   const message: IMetadataMessage = {
@@ -61,7 +60,6 @@ export default function Summary({ onError }: ISummaryProps) {
   //     </div>
   //   );
   // }
-
 
   return (
     <div className="color-text-primary gsc-main">
