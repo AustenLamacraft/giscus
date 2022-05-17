@@ -67,7 +67,7 @@ export default function Summary({ onError }: ISummaryProps) {
         <div className="gsc-comment-box-main">
           <textarea
             className="form-control input-contrast gsc-comment-box-search"
-            placeholder={'Search commented discussions'}
+            placeholder={'Search commented questions'}
             rows={1}
             value={input}
             onChange={(event) => setInput(event.target.value)}
