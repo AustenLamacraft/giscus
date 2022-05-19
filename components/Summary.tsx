@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState, ChangeEvent } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext, ConfigContext } from '../lib/context';
 import { useGiscusTranslation } from '../lib/i18n';
 import { useDiscussionsSummary } from '../services/giscus/discussions';
@@ -67,7 +67,7 @@ export default function Summary({ onError }: ISummaryProps) {
         <div className="gsc-comment-box-main">
           <textarea
             className="form-control input-contrast gsc-comment-box-search"
-            placeholder={'Search commented questions'}
+            placeholder={'Search discussions'}
             rows={1}
             value={input}
             onChange={(event) => setInput(event.target.value)}
@@ -83,7 +83,7 @@ export default function Summary({ onError }: ISummaryProps) {
         </div>
         <div className="gsc-header">
           <div className="gsc-left-header">
-            <h3 className="gsc-comments-count">Latest comments</h3>
+            <h3 className="gsc-comments-count">Recent activity</h3>
           </div>
         </div>
         {data.isLoading ? (

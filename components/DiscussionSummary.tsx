@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import { useDateFormatter, useGiscusTranslation, useRelativeTimeFormatter } from '../lib/i18n';
-import { IGiscussion } from '../lib/types/adapter';
+import { IComment, IReply, IGiscussion } from '../lib/types/adapter';
 import cheerio from 'cheerio';
+import { last, prev } from 'cheerio/lib/api/traversing';
 
 interface IDiscussionProps {
   children?: ReactNode;
@@ -13,7 +14,22 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
   const formatDate = useDateFormatter();
   const formatDateDistance = useRelativeTimeFormatter();
 
-  const comment = discussion.comments[0];
+  const { totalCommentCount, totalReplyCount } = discussion;
+
+  const commentOrLastReply = (comment: IComment) => {
+    return comment.replies[comment.replies.length - 1] || comment;
+  };
+
+  const latestComment = discussion.comments.reduce((prev: IComment | IReply, curr: IComment) => {
+    if (
+      Date.parse(prev.lastEditedAt || prev.createdAt) <
+      Date.parse(curr.lastEditedAt || curr.createdAt)
+    ) {
+      return commentOrLastReply(curr);
+    }
+    return prev;
+  }, commentOrLastReply(discussion.comments[0]));
+
   const discussionHref = cheerio.load(discussion.bodyHTML)('a')[0]?.attribs.href;
   const discussionDescription = cheerio.load(discussion.bodyHTML)('p').contents().first().text();
   // const [backPage, setBackPage] = useState(0);
@@ -68,59 +84,82 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
     <>
       <div className="gsc-comment">
         <div className={'w-full min-w-0'}>
+          <div
+            className={`markdown gsc-comment-header${
+              latestComment.isMinimized ? ' minimized color-bg-tertiary border-color-primary' : ''
+            }`}
+          >
+            {discussionHref ? (
+              <a
+                rel="nofollow noopener noreferrer"
+                target="_blank"
+                href={discussionHref}
+                className="ml-2 link"
+              >
+                {discussionDescription}
+              </a>
+            ) : (
+              <span>{discussionDescription}</span>
+            )}
+          </div>
           <div className="gsc-comment-header">
             <div className="gsc-comment-author" style={{ whiteSpace: 'pre-wrap' }}>
               <a
                 rel="nofollow noopener noreferrer"
                 target="_blank"
-                href={comment.author.url}
+                href={latestComment.author.url}
                 className="gsc-comment-author-avatar"
               >
                 <img
                   className="mr-2 rounded-full"
-                  src={comment.author.avatarUrl}
+                  src={latestComment.author.avatarUrl}
                   width="30"
                   height="30"
-                  alt={`@${comment.author.login}`}
+                  alt={`@${latestComment.author.login}`}
                 />
-                <span className="font-semibold link-primary">{comment.author.login}</span>
+                <span className="font-semibold link-primary">{latestComment.author.login}</span>
               </a>
               <div className="hidden ml-2 sm:inline-flex">
-                {comment.authorAssociation !== 'NONE' ? (
+                {latestComment.authorAssociation !== 'NONE' ? (
                   <span
                     className={`text-xs px-1 ml-1 capitalize border rounded-md ${
-                      comment.viewerDidAuthor ? 'color-box-border-info' : 'color-label-border'
+                      latestComment.viewerDidAuthor ? 'color-box-border-info' : 'color-label-border'
                     }`}
                   >
-                    {t(comment.authorAssociation)}
+                    {t(latestComment.authorAssociation)}
                   </span>
                 ) : null}
-                {'commented'}
+                {' commented'}
               </div>
               {', '}
               <time
                 className="whitespace-nowrap"
-                title={formatDate(comment.createdAt)}
-                dateTime={comment.createdAt}
+                title={formatDate(latestComment.createdAt)}
+                dateTime={latestComment.createdAt}
               >
-                {formatDateDistance(comment.createdAt)}
+                {formatDateDistance(latestComment.createdAt)}
               </time>
             </div>
+            <span className="text-xs color-text-tertiary">
+              {t('comments', { count: totalCommentCount, plus: '' })}
+              {', '}
+              {t('replies', { count: totalReplyCount, plus: '' })}
+            </span>
+          </div>
+          {/* <div className="gsc-comment-header">
+            
             <div className="flex">
-              {comment.lastEditedAt ? (
+              {latestComment.lastEditedAt ? (
                 <button
                   className="color-text-secondary gsc-comment-edited"
-                  title={t('lastEditedAt', { date: formatDate(comment.lastEditedAt) })}
+                  title={t('lastEditedAt', { date: formatDate(latestComment.lastEditedAt) })}
                 >
                   {t('edited')}
                 </button>
               ) : null}
             </div>
-            <span className="text-xs color-text-tertiary">
-              {t('replies', { count: comment.replyCount, plus: '' })}
-            </span>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className={`markdown gsc-comment-content${
               comment.isMinimized ? ' minimized color-bg-tertiary border-color-primary' : ''
             }`}
@@ -137,7 +176,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
             ) : (
               <span>{discussionDescription}</span>
             )}
-          </div>
+          </div> */}
           {children}
           {/* {!comment.isMinimized ? (
             // <div className="gsc-comment-footer">

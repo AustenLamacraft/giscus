@@ -22,7 +22,7 @@ const DISCUSSION_QUERY = `
     }
     viewerHasReacted
   }
-  comments(last: 1) {
+  comments(last: 15) {
     totalCount
     pageInfo {
       startCursor

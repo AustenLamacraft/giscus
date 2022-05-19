@@ -148,7 +148,7 @@ export default function Home({
           data-emit-metadata="0"
           data-input-position="bottom"
           data-lang={locale}
-          data-discussions-summary="50"
+          data-discussions-summary="20"
         />
         <a
           className="block mx-auto mb-6 w-max"
