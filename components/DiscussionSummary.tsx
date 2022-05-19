@@ -141,9 +141,7 @@ export function DiscussionSummary({ children, discussion: { discussion } }: IDis
               </time>
             </div>
             <span className="text-xs color-text-tertiary">
-              {t('comments', { count: totalCommentCount, plus: '' })}
-              {', '}
-              {t('replies', { count: totalReplyCount, plus: '' })}
+              {t('comments', { count: totalCommentCount + totalReplyCount, plus: '' })}
             </span>
           </div>
           {/* <div className="gsc-comment-header">
