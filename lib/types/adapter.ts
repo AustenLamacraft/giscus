@@ -75,6 +75,16 @@ export interface IGiscussion {
   };
 }
 
+export interface IGiscussions {
+  pageInfo: {
+    startCursor: string;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    endCursor: string;
+  };
+  discussions: IGiscussion[];
+}
+
 export interface ICategory {
   id: string;
   name: string;

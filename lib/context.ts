@@ -39,7 +39,7 @@ interface IConfigContext {
   emitMetadata: boolean;
   inputPosition: InputPosition;
   defaultCommentOrder: CommentOrder;
-  discussionsSummary: number;
+  discussionsSummary: boolean;
 }
 
 export const ConfigContext = createContext<IConfigContext>({
@@ -54,5 +54,5 @@ export const ConfigContext = createContext<IConfigContext>({
   emitMetadata: false,
   inputPosition: 'bottom',
   defaultCommentOrder: 'oldest',
-  discussionsSummary: 0,
+  discussionsSummary: false,
 });

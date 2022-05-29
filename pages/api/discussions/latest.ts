@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getDiscussions } from '../../../services/github/getDiscussions';
 import { adaptDiscussion } from '../../../lib/adapter';
-import { IError, IGiscussion } from '../../../lib/types/adapter';
+import { IError, IGiscussions } from '../../../lib/types/adapter';
 
 import { getAppAccessToken } from '../../../services/github/getAppAccessToken';
 import { addCorsHeaders } from '../../../lib/cors';
 
-async function get(req: NextApiRequest, res: NextApiResponse<Array<IGiscussion> | IError>) {
+async function get(req: NextApiRequest, res: NextApiResponse<IGiscussions | IError>) {
   const params = {
     repo: req.query.repo as string,
     number: +req.query.number,
@@ -70,8 +70,9 @@ async function get(req: NextApiRequest, res: NextApiResponse<Array<IGiscussion> 
 
   const viewer = data.viewer;
   const discussions = data.repository ? data.repository.discussions?.nodes : data.search?.nodes;
+  const pageInfo = data.repository ? data.repository.discussions?.pageInfo : data.search?.pageInfo;
   const adapted = discussions?.map((discussion) => adaptDiscussion({ viewer, discussion }));
-  res.status(200).json(adapted);
+  res.status(200).json({ pageInfo, discussions: adapted });
 }
 
 export default async function DiscussionsApi(req: NextApiRequest, res: NextApiResponse) {

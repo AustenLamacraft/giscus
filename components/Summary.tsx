@@ -11,12 +11,12 @@ interface ISummaryProps {
 export default function Summary({ onError }: ISummaryProps) {
   const { token } = useContext(AuthContext);
   const { t } = useGiscusTranslation();
-  const { repo, discussionsSummary, categoryId, category } = useContext(ConfigContext);
+  const { repo, categoryId, category } = useContext(ConfigContext);
   // const [orderBy, setOrderBy] = useState<CommentOrder>(defaultCommentOrder);
-  const query = { repo, number: discussionsSummary, categoryId, category };
+  const query = { repo, categoryId, category };
 
   const [term, setTerm] = useState('');
-  const { ...data } = useDiscussionsSummary({ ...query, term }, token);
+  const { increaseSize, ...data } = useDiscussionsSummary({ ...query, term }, token);
 
   useEffect(() => {
     if (data.error && onError) {
@@ -103,6 +103,27 @@ export default function Summary({ onError }: ISummaryProps) {
                     <DiscussionSummary key={discussion.discussion.id} discussion={discussion} />
                   ))
               : null}
+
+
+            <div className="pagination-loader-container gsc-pagination">
+              <button
+                className="flex flex-col items-center px-6 py-2 text-sm border rounded color-bg-primary color-border-primary"
+                onClick={increaseSize}
+                disabled={!data.hasNextPage || data.isLoadingMore}
+              >
+                {/* <span className="color-text-secondary">
+                  {t('hiddenItems', { count: data.numHidden })}
+                </span> */}
+                <span className="font-semibold color-text-link">
+                  {data.isLoadingMore
+                    ? t('loading')
+                    : data.hasNextPage
+                    ? t('loadMore')
+                    : "That's all"}
+                  …
+                </span>
+              </button>
+            </div>
           </div>
         )}
       </div>

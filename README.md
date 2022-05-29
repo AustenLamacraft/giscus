@@ -5,7 +5,7 @@ A fork of [giscus][giscus] with
 1. Rendering of LaTeX in comments.
 2. A `Summary` component that shows recent comments.
 
-To switch from the conventional view to the summary view of the latest comments, set the `data-discussions-summary` property to the number of recent comments you want to display. `0` gives the usual view. 
+To switch from the conventional view to the summary view of the latest comments, set the `data-discussions-summary` property. `0` gives the usual view; `1` the summary view.
 
 ## TODOs
 

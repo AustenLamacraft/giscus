@@ -3,7 +3,7 @@ import useSWR, { SWRConfig } from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import { cleanParams, fetcher } from '../../lib/fetcher';
 import { Reaction, updateDiscussionReaction } from '../../lib/reactions';
-import { IComment, IGiscussion, IReply } from '../../lib/types/adapter';
+import { IComment, IGiscussion, IGiscussions, IReply } from '../../lib/types/adapter';
 import { DiscussionQuery, PaginationParams, DiscussionsQuery } from '../../lib/types/common';
 import { CommentOrder, IDiscussionData } from '../../lib/types/giscus';
 
@@ -301,7 +301,11 @@ export function useFrontBackDiscussion(
   };
 }
 
-export function useDiscussionsSummary(query: DiscussionsQuery, token?: string) {
+export function useDiscussionsSummary(
+  query: DiscussionsQuery,
+  token?: string,
+  pagination: PaginationParams = { first: 2 },
+) {
   const [errorStatus, setErrorStatus] = useState(0);
   const urlParams = new URLSearchParams(cleanParams({ ...query }));
   const headers = useMemo(() => {
@@ -309,19 +313,45 @@ export function useDiscussionsSummary(query: DiscussionsQuery, token?: string) {
     return { headers };
   }, [token]);
 
-  const getKey = [`/api/discussions/latest?${urlParams}`, headers];
+  // const getKey = [`/api/discussions/latest?${urlParams}`, headers];
+
+  const getKey = (pageIndex: number, previousPageData?: IGiscussions) => {
+    if (pagination.first === 0 || pagination.last === 0) return null;
+    if (pageIndex === 0) return [`/api/discussions/latest?${urlParams}`, headers];
+    if (!previousPageData.pageInfo.hasNextPage) return null;
+    const params = new URLSearchParams(
+      cleanParams({
+        ...query,
+        after: previousPageData.pageInfo.endCursor,
+        before: pagination.before,
+      }),
+    );
+    return [`/api/discussions/latest?${params}`, headers];
+  };
 
   const shouldRevalidate = (status: number) => ![403, 404, 429].includes(status);
 
-  const { data, error, isValidating } = useSWR<IGiscussion[]>(getKey, fetcher, {
-    onErrorRetry: (err, key, config, revalidate, opts) => {
-      if (!shouldRevalidate(err?.status)) return;
-      SWRConfig.default.onErrorRetry(err, key, config, revalidate, opts);
+  const { data, size, setSize, error, isValidating } = useSWRInfinite<IGiscussions>(
+    getKey,
+    fetcher,
+    {
+      onErrorRetry: (err, key, config, revalidate, opts) => {
+        if (!shouldRevalidate(err?.status)) return;
+        SWRConfig.default.onErrorRetry(err, key, config, revalidate, opts);
+      },
+      revalidateOnMount: shouldRevalidate(errorStatus),
+      revalidateOnFocus: shouldRevalidate(errorStatus),
+      revalidateOnReconnect: shouldRevalidate(errorStatus),
     },
-    revalidateOnMount: shouldRevalidate(errorStatus),
-    revalidateOnFocus: shouldRevalidate(errorStatus),
-    revalidateOnReconnect: shouldRevalidate(errorStatus),
-  });
+  );
+
+  const increaseSize = useCallback(() => setSize(size + 1), [setSize, size]);
+  const discussions = data?.reduce(
+    (prev, currPage) => [...prev, ...currPage.discussions],
+    [] as IGiscussion[],
+  );
+  const isLoading = !error && !data;
+  const isLoadingMore = isLoading || (size > 0 && !data?.[size - 1]);
 
   if (error?.status && error.status !== errorStatus) {
     setErrorStatus(error.status);
@@ -330,9 +360,12 @@ export function useDiscussionsSummary(query: DiscussionsQuery, token?: string) {
   }
 
   return {
-    discussions: data,
+    discussions,
+    increaseSize,
     isValidating,
-    isLoading: !error && !data,
+    isLoading,
+    isLoadingMore,
+    hasNextPage: data?.[size - 1]?.pageInfo.hasNextPage,
     isError: !!error,
     isNotFound: error?.status === 404,
     isRateLimited: error?.status === 429,
