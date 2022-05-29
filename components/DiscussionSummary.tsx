@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { useDateFormatter, useGiscusTranslation, useRelativeTimeFormatter } from '../lib/i18n';
 import { IComment, IReply, IGiscussion } from '../lib/types/adapter';
 import cheerio from 'cheerio';
-import { last, prev } from 'cheerio/lib/api/traversing';
 
 interface IDiscussionProps {
   children?: ReactNode;

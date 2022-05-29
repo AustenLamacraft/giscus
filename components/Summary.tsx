@@ -104,7 +104,6 @@ export default function Summary({ onError }: ISummaryProps) {
                   ))
               : null}
 
-
             <div className="pagination-loader-container gsc-pagination">
               <button
                 className="flex flex-col items-center px-6 py-2 text-sm border rounded color-bg-primary color-border-primary"
